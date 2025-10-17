@@ -5,21 +5,24 @@ extern crate serde_json;
 
 mod fetcher;
 
-use crate::fetcher::{CodeDefinition, Problem};
-use regex::Regex;
-use std::env;
-use std::fs;
-use std::fs::File;
-use std::io;
-use std::io::{BufRead, Write};
-use std::path::Path;
+use std::{
+    env, fs,
+    fs::File,
+    io,
+    io::{BufRead, Write},
+    path::Path,
+    sync::{Arc, Mutex},
+};
 
-use futures::executor::block_on;
-use futures::executor::ThreadPool;
-use futures::future::join_all;
-use futures::stream::StreamExt;
-use futures::task::SpawnExt;
-use std::sync::{Arc, Mutex};
+use futures::{
+    executor::{ThreadPool, block_on},
+    future::join_all,
+    stream::StreamExt,
+    task::SpawnExt,
+};
+use regex::Regex;
+
+use crate::fetcher::{CodeDefinition, Problem};
 
 /// main() helps to generate the submission template .rs
 fn main() {
@@ -148,11 +151,12 @@ fn main() {
 }
 
 fn generate_random_id(except_ids: &[u32]) -> u32 {
-    use rand::Rng;
     use std::fs;
-    let mut rng = rand::rng(); 
+
+    use rand::Rng;
+    let mut rng = rand::rng();
     loop {
-        let res: u32 = rng.random_range(1..1106); 
+        let res: u32 = rng.random_range(1..1106);
         if !except_ids.contains(&res) {
             return res;
         }

@@ -1,8 +1,9 @@
 extern crate reqwest;
 extern crate serde_json;
 
-use serde_json::Value;
 use std::fmt::{Display, Error, Formatter};
+
+use serde_json::Value;
 
 const PROBLEMS_URL: &str = "https://leetcode.com/api/problems/algorithms/";
 const GRAPHQL_URL: &str = "https://leetcode.com/graphql";
@@ -33,7 +34,9 @@ pub fn get_problem(frontend_question_id: u32) -> Option<Problem> {
                     problem.stat.question_title_slug.as_ref().unwrap(),
                 ))
                 .send()
-                .unwrap().json().unwrap();
+                .unwrap()
+                .json()
+                .unwrap();
             return Some(Problem {
                 title: problem.stat.question_title.clone().unwrap(),
                 title_slug: problem.stat.question_title_slug.clone().unwrap(),
@@ -95,7 +98,10 @@ pub async fn get_problem_async(problem_stat: StatWithStatus) -> Option<Problem> 
 }
 
 pub fn get_problems() -> Option<Problems> {
-    reqwest::blocking::get(PROBLEMS_URL).unwrap().json().unwrap()
+    reqwest::blocking::get(PROBLEMS_URL)
+        .unwrap()
+        .json()
+        .unwrap()
 }
 
 #[derive(Serialize, Deserialize)]
