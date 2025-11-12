@@ -1,1 +1,1 @@
-mod p0977_squares_of_a_sorted_array;
+mod p0209_minimum_size_subarray_sum;
