@@ -37,24 +37,18 @@ impl Solution {
         let mut ans = vec![0; n];
         let mut l = 0;
         let mut r = n;
-        while l < r {
-            if -nums[l] > nums[r - 1] {
-                ans[n - 1] = nums[l] * nums[l];
+        for i in (0..n).rev() {
+            let x = -nums[l];
+            let y = nums[r - 1];
+            if x > y {
+                ans[i] = x * x;
                 l += 1;
             } else {
-                ans[n - 1] = nums[r - 1] * nums[r - 1];
+                ans[i] = y * y;
                 r -= 1;
             }
-            n -= 1;
         }
         ans
-    }
-    pub fn sorted_squares1(nums: Vec<i32>) -> Vec<i32> {
-        // Vec<T>::iter() 方法返回一个 不可变引用迭代器：
-        // 也就是说，它产生的序列元素类型是 &T。
-        let mut squared: Vec<i32> = nums.iter().map(|&x| x * x).collect();
-        squared.sort();
-        squared
     }
 }
 
