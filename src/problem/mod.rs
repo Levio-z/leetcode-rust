@@ -1,1 +1,0 @@
-mod p0209_minimum_size_subarray_sum;

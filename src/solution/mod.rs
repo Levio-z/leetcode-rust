@@ -4,3 +4,6 @@ mod s0001_two_sum;
 mod s0026_remove_duplicates_from_sorted_array;
 mod s0027_remove_element;
 mod s0977_squares_of_a_sorted_array;
+mod s0209_minimum_size_subarray_sum;
+mod s0303_range_sum_query_immutable;
+mod s0844_backspace_string_compare;
