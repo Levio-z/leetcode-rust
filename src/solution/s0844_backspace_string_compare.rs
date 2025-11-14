@@ -52,8 +52,24 @@ impl Solution {
         };
         builder(s) == builder(t)
     }
-
     pub fn backspace_compare(s: String, t: String) -> bool {
+        let builder = |s: String| -> String {
+            let mut stack = Vec::new();
+            for c in s.chars() {
+                if c == '#' {
+                    stack.pop(); // 遇到退格键，弹出栈顶元素
+                } else {
+                    stack.push(c); // 普通字符，压入栈中
+                }
+            }
+            // collect() 的目标类型是 String，而 String 实际上是通过 FromIterator<char>
+            // 实现的：
+            stack.into_iter().collect() // 将栈转换为字符串
+        };
+        builder(s) == builder(t)
+    }
+
+    pub fn backspace_compare2(s: String, t: String) -> bool {
         let (mut i, mut j) = (s.len(), t.len());
         let (s_chars, t_chars) = (s.as_bytes(), t.as_bytes());
         // 闭包：根据当前索引返回下一个有效字符索引
