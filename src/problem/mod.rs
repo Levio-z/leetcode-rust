@@ -17,5 +17,4 @@ fn main() {
         let _ = nxt; // 使用借用
     }
     // let list = std::collections::LinkedList::new();
-}
-mod p0707_design_linked_list;
+}mod p0206_reverse_linked_list;
