@@ -17,4 +17,4 @@ fn main() {
         let _ = nxt; // 使用借用
     }
     // let list = std::collections::LinkedList::new();
-}mod p1114_print_in_order;
+}
