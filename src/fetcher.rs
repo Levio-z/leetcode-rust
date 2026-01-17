@@ -6,6 +6,7 @@ use std::fmt::{Display, Error, Formatter};
 use serde_json::Value;
 
 const PROBLEMS_URL: &str = "https://leetcode.com/api/problems/algorithms/";
+const PROBLEMS_CONCURRENCY_URL: &str = "https://leetcode.com/api/problems/concurrency/";
 const GRAPHQL_URL: &str = "https://leetcode.com/graphql";
 const QUESTION_QUERY_STRING: &str = r#"
 query questionData($titleSlug: String!) {
@@ -21,7 +22,12 @@ const QUESTION_QUERY_OPERATION: &str = "questionData";
 
 pub fn get_problem(frontend_question_id: u32) -> Option<Problem> {
     let problems = get_problems().unwrap();
-    for problem in problems.stat_status_pairs.iter() {
+    let concurrency_problems = get_concurrency().unwrap();
+    for problem in problems
+        .stat_status_pairs
+        .iter()
+        .chain(concurrency_problems.stat_status_pairs.iter())
+    {
         if problem.stat.frontend_question_id == frontend_question_id {
             if problem.paid_only {
                 return None;
@@ -99,6 +105,13 @@ pub async fn get_problem_async(problem_stat: StatWithStatus) -> Option<Problem> 
 
 pub fn get_problems() -> Option<Problems> {
     reqwest::blocking::get(PROBLEMS_URL)
+        .unwrap()
+        .json()
+        .unwrap()
+}
+
+pub fn get_concurrency() -> Option<Problems> {
+    reqwest::blocking::get(PROBLEMS_CONCURRENCY_URL)
         .unwrap()
         .json()
         .unwrap()

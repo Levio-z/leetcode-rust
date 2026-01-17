@@ -43,7 +43,7 @@ impl Solution {
                 p = &mut p.as_mut().unwrap().next;
             }
         }
-        Some(Box::new(ListNode::new(0)))
+        head.take()
     }
 
     pub fn remove_elements2(head: Option<Box<ListNode>>, val: i32) -> Option<Box<ListNode>> {
