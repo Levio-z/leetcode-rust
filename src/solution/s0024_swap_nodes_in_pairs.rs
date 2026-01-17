@@ -64,22 +64,26 @@ impl Solution {
 
         // 2️⃣ 遍历链表，每次处理一对节点
         while let Some(mut first) = head {
-            if let Some(mut second) = first.next.take() {
+            // 次数必须用显示move，否则会报错：use of partially moved value: `first`
+            match first.next.take() {
                 // 暂存下一轮待处理的链表
-                head = second.next.take();
+                Some(mut second) => {
+                    head = second.next.take();
+                    // use of partially moved value: `first`
+                    // 交换节点
+                    second.next = Some(first);
 
-                // 交换节点
-                second.next = Some(first);
+                    // 拼接到已处理链表
+                    tail.next = Some(second);
 
-                // 拼接到已处理链表
-                tail.next = Some(second);
-
-                // 更新尾节点，指向当前已处理链表的最后一个节点
-                tail = tail.next.as_mut().unwrap().next.as_mut().unwrap();
-            } else {
-                // 如果剩余只有一个节点，直接拼接
-                tail.next = Some(first);
-                break;
+                    // 更新尾节点，指向当前已处理链表的最后一个节点
+                    tail = tail.next.as_mut().unwrap().next.as_mut().unwrap();
+                }
+                None => {
+                    // 如果剩余只有一个节点，直接拼接
+                    tail.next = Some(first);
+                    break;
+                }
             }
         }
 
@@ -91,9 +95,12 @@ impl Solution {
     #[allow(clippy::bind_instead_of_map)]
     pub fn swap_pairs_recursive(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         head.and_then(|mut n| {
+            // n 被部分move，不能直接使用n
             match n.next {
                 None => Some(n),
+                // n.next 被move，不能使用n和n.next
                 Some(mut m) => {
+                    // n.next被赋值，n又不存在move状态
                     // 递归交换剩余链表
                     n.next = Self::swap_pairs(m.next);
                     // 当前节点对交换
