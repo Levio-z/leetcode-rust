@@ -145,7 +145,7 @@ impl BrowserHistoryTrait for StackBrowserHistory {
             self.forward_stack.push(self.back_stack.pop().unwrap());
         }
 
-        self.back_stack.last().unwrap().to_string()
+        self.back_stack.last().unwrap().clone()
     }
 
     fn forward(&mut self, steps: i32) -> String {
@@ -159,7 +159,7 @@ impl BrowserHistoryTrait for StackBrowserHistory {
             self.back_stack.push(self.forward_stack.pop().unwrap());
         }
 
-        self.back_stack.last().unwrap().to_string()
+        self.back_stack.last().unwrap().clone()
     }
 }
 

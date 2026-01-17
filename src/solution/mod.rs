@@ -11,3 +11,5 @@ mod s0208_implement_trie_prefix_tree;
 mod s0203_remove_linked_list_elements;
 mod s0707_design_linked_list;
 mod s0206_reverse_linked_list;
+mod s1472_design_browser_history;
+mod s0385_mini_parser;
