@@ -19,3 +19,4 @@ mod s0019_remove_nth_node_from_end_of_list;
 mod s0242_valid_anagram;
 mod s0349_intersection_of_two_arrays;
 mod s0454_4sum_ii;
+mod s0002_add_two_numbers;
