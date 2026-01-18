@@ -279,25 +279,37 @@ fn build_desc(content: &str) -> String {
         .replace("\n\n", "\n")
         .replace("\n", "\n * ")
 }
-
+fn get_problem_id(id: &u32) -> String {
+    fs::read_dir("./src/problem")
+        .map(|rd| {
+            Box::new(rd.filter_map(|x| x.ok()).filter_map(|x| {
+                let file_name = x.file_name().into_string().ok()?;
+                println!("file_name: {}", file_name);
+                if file_name.starts_with(&format!("p{:04}", id)) {
+                    println!("match: {}", file_name);
+                    Some(file_name)
+                } else {
+                    None
+                }
+            })) as Box<dyn Iterator<Item = String>>
+        })
+        .unwrap_or_else(|_| Box::new(std::iter::empty()))
+        .next()
+        .unwrap_or_default()
+}
 fn deal_solving(id: &u32) {
-    let problem = fetcher::get_problem(*id).unwrap();
-    let file_name = format!(
-        "p{:04}_{}",
-        problem.question_id,
-        problem.title_slug.replace("-", "_")
-    );
-    let file_path = Path::new("./src/problem").join(format!("{}.rs", file_name));
+    let file_name = get_problem_id(id);
+
+    let file_path = Path::new("./src/problem").join(&file_name);
     // check problem/ existence
     if !file_path.exists() {
         panic!("problem does not exist");
     }
     // check solution/ no existence
-    let solution_name = format!(
-        "s{:04}_{}",
-        problem.question_id,
-        problem.title_slug.replace("-", "_")
-    );
+    let solution_name = file_name
+        .strip_prefix('p')
+        .map(|rest| format!("s{}", rest))
+        .expect("file name must start with p");
     let solution_path = Path::new("./src/solution").join(format!("{}.rs", solution_name));
     if solution_path.exists() {
         panic!("solution exists");
