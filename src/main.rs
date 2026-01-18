@@ -284,10 +284,8 @@ fn get_problem_id(id: &u32) -> String {
         .map(|rd| {
             Box::new(rd.filter_map(|x| x.ok()).filter_map(|x| {
                 let file_name = x.file_name().into_string().ok()?;
-                println!("file_name: {}", file_name);
                 if file_name.starts_with(&format!("p{:04}", id)) {
-                    println!("match: {}", file_name);
-                    Some(file_name)
+                    Some(file_name.strip_suffix(".rs").unwrap().to_string())
                 } else {
                     None
                 }
@@ -300,7 +298,7 @@ fn get_problem_id(id: &u32) -> String {
 fn deal_solving(id: &u32) {
     let file_name = get_problem_id(id);
 
-    let file_path = Path::new("./src/problem").join(&file_name);
+    let file_path = Path::new("./src/problem").join(format!("{}.rs", file_name));
     // check problem/ existence
     if !file_path.exists() {
         panic!("problem does not exist");
