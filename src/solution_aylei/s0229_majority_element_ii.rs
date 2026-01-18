@@ -1,23 +1,22 @@
-/**
- * [229] Majority Element II
- *
- * Given an integer array of size n, find all elements that appear more than &lfloor; n/3 &rfloor; times.
- *
- * Note: The algorithm should run in linear time and in O(1) space.
- *
- * Example 1:
- *
- *
- * Input: [3,2,3]
- * Output: [3]
- *
- * Example 2:
- *
- *
- * Input: [1,1,1,3,3,2,2,2]
- * Output: [1,2]
- *
- */
+/// [229] Majority Element II
+///
+/// Given an integer array of size n, find all elements that appear more than
+/// &lfloor; n/3 &rfloor; times.
+///
+/// Note: The algorithm should run in linear time and in O(1) space.
+///
+/// Example 1:
+///
+///
+/// Input: [3,2,3]
+/// Output: [3]
+///
+/// Example 2:
+///
+///
+/// Input: [1,1,1,3,3,2,2,2]
+/// Output: [1,2]
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/majority-element-ii/
@@ -47,7 +46,8 @@ impl Solution {
                 vote1 -= 1;
             }
         }
-        // the presents of majority element is not guaranteed, we have to do a double check
+        // the presents of majority element is not guaranteed, we have to do a double
+        // check
         let mut res = Vec::new();
         for &v in vec![candidate0, candidate1].iter() {
             let mut count = 0;
@@ -74,7 +74,7 @@ mod tests {
     fn test_229() {
         assert_eq!(
             Solution::majority_element(vec![1, 1, 1, 2, 2, 2, 3, 3, 3]),
-            vec![]
+            Vec::<i32>::new()
         );
         assert_eq!(
             Solution::majority_element(vec![1, 1, 1, 2, 2, 3, 3, 3]),
@@ -82,6 +82,9 @@ mod tests {
         );
         assert_eq!(Solution::majority_element(vec![1]), vec![1]);
         assert_eq!(Solution::majority_element(vec![5, 6, 6]), vec![6]);
-        assert_eq!(Solution::majority_element(vec![1, 2, 3, 4]), vec![]);
+        assert_eq!(
+            Solution::majority_element(vec![1, 2, 3, 4]),
+            Vec::<i32>::new()
+        );
     }
 }

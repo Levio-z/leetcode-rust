@@ -1,26 +1,24 @@
-/**
- * [90] Subsets II
- *
- * Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
- *
- * Note: The solution set must not contain duplicate subsets.
- *
- * Example:
- *
- *
- * Input: [1,2,2]
- * Output:
- * [
- *   [2],
- *   [1],
- *   [1,2,2],
- *   [2,2],
- *   [1,2],
- *   []
- * ]
- *
- *
- */
+/// [90] Subsets II
+///
+/// Given a collection of integers that might contain duplicates, nums, return
+/// all possible subsets (the power set).
+///
+/// Note: The solution set must not contain duplicate subsets.
+///
+/// Example:
+///
+///
+/// Input: [1,2,2]
+/// Output:
+/// [
+///   [2],
+///   [1],
+///   [1,2,2],
+///   [2,2],
+///   [1,2],
+///   []
+/// ]
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/subsets-ii/
@@ -28,12 +26,10 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-count the repeats of each number,
-then in backtracking, each number can be picked up for 0..repeat times
-
-using BTreeMap to preserve order (easy for test)
-*/
+// count the repeats of each number,
+// then in backtracking, each number can be picked up for 0..repeat times
+//
+// using BTreeMap to preserve order (easy for test)
 use std::collections::BTreeMap;
 impl Solution {
     pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {
@@ -90,6 +86,6 @@ mod tests {
             ]
         );
         assert_eq!(Solution::subsets_with_dup(vec![1]), vec![vec![], vec![1],]);
-        assert_eq!(Solution::subsets_with_dup(vec![]), vec![vec![],]);
+        assert_eq!(Solution::subsets_with_dup(vec![]), Vec::<Vec<i32>>::new());
     }
 }

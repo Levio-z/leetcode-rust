@@ -26,11 +26,11 @@ impl Solution {
         // 创建hash表
         let mut idx = HashMap::with_capacity(nums.len());
         for (index, num) in nums.iter().enumerate() {
-            match map.get(&(target - num)) {
+            match idx.get(&(target - num)) {
                 None => {
-                    map.insert(num, index);
+                    idx.insert(num, index);
                 }
-                Some(&sub_index) => return vec![*sub_index as i32, index as i32],
+                Some(&sub_index) => return vec![sub_index as i32, index as i32],
             }
         }
         vec![]

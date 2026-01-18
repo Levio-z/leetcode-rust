@@ -23,8 +23,6 @@
 ///   s = "wordgoodgoodgoodbestword",
 ///   words = ["word","good","best","word"]
 /// Output: []
-///
-///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
@@ -145,7 +143,7 @@ mod tests {
                     "word".to_string()
                 ]
             ),
-            vec![]
+            Vec::<i32>::new()
         );
         assert_eq!(
             Solution::find_substring(
