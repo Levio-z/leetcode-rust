@@ -11,17 +11,20 @@
 ## 优化前的问题
 
 ### 串行获取问题列表
+
 ```rust
 let problems = fetcher::get_problems().ok_or("Failed to fetch problems")?;
 // 然后处理...
 ```
 
 **问题:**
+
 - 算法题和并发题列表串行获取
 - 总耗时 = 算法题请求时间 + 并发题请求时间
 - 浪费了并行化的机会
 
 ### 无限制的并发
+
 ```rust
 for problem_stat in problems.stat_status_pairs {
     tasks.push(pool.spawn_with_handle(async move {
@@ -32,6 +35,7 @@ block_on(join_all(tasks)); // 一次性等待所有任务
 ```
 
 **问题:**
+
 - 一次性创建所有问题的异步任务（可能上千个）
 - 同时发起大量 HTTP 请求
 - 可能导致：
@@ -41,6 +45,7 @@ block_on(join_all(tasks)); // 一次性等待所有任务
   - 无法看到进度
 
 ### 进度反馈不足
+
 ```rust
 let mut count = completed.lock().unwrap();
 *count += 1;
@@ -50,6 +55,7 @@ if *count % 10 == 0 || *count == total {
 ```
 
 **问题:**
+
 - 只在每 10 个问题后显示进度
 - 不知道总共有多少问题
 - 没有批次信息
@@ -60,6 +66,7 @@ if *count % 10 == 0 || *count == total {
 ### 优化 1: 并发获取问题列表
 
 **实现:**
+
 ```rust
 println!("Fetching problem lists...");
 
@@ -84,12 +91,14 @@ let (problems, concurrency_problems) = block_on(async {
 ```
 
 **好处:**
+
 - 两个请求并行执行
 - 总耗时 = max(算法题请求时间, 并发题请求时间)
 - **理论加速: 约 2x**
 
 **性能对比:**
-```
+
+```bash
 优化前:
 [算法题请求: 1s] -> [并发题请求: 1s] = 总计 2s
 
@@ -101,6 +110,7 @@ let (problems, concurrency_problems) = block_on(async {
 ### 优化 2: 批量处理控制并发
 
 **实现:**
+
 ```rust
 // 合并并过滤问题列表
 let all_problems: Vec<_> = problems.stat_status_pairs
@@ -142,12 +152,14 @@ for (batch_idx, batch) in batches.into_iter().enumerate() {
 ```
 
 **好处:**
+
 - 每批只处理 50 个问题
 - 批次间串行，批次内并行
 - 避免同时发起过多请求
 - 每批完成后显示进度
 
 **批量大小选择 (50):**
+
 - **太小 (如 10):** 批次太多，串行开销大
 - **太大 (如 200):** 可能被限流，进度反馈不及时
 - **50:** 平衡点
@@ -158,6 +170,7 @@ for (batch_idx, batch) in batches.into_iter().enumerate() {
 ### 优化 3: 改进的进度反馈
 
 **实现:**
+
 ```rust
 let total = all_problems.len();
 println!("Found {} problems to initialize", total);
@@ -178,6 +191,7 @@ println!("Successfully initialized {} problems!", completed.lock().unwrap());
 ```
 
 **好处:**
+
 - 显示总问题数
 - 显示批次进度
 - 显示总体进度
@@ -186,6 +200,7 @@ println!("Successfully initialized {} problems!", completed.lock().unwrap());
 ### 优化 4: 代码质量改进
 
 **添加 Clone trait:**
+
 ```rust
 // models.rs
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -201,6 +216,7 @@ pub struct Difficulty { ... }
 **原因:** 批量处理需要克隆问题统计信息
 
 **移除不必要的代码:**
+
 ```rust
 // 优化前
 .find(|&d| d.value == "rust".to_string())  // 创建临时 String
@@ -210,6 +226,7 @@ pub struct Difficulty { ... }
 ```
 
 **移除冗余的 async 块:**
+
 ```rust
 // 优化前
 async {
@@ -228,7 +245,8 @@ create_problem_file(&problem, code, false);
 ### 场景: 初始化 1000 个问题
 
 #### 优化前
-```
+
+```bash
 1. 获取列表: 2秒 (串行)
    - 算法题: 1秒
    - 并发题: 1秒
@@ -241,7 +259,8 @@ create_problem_file(&problem, code, false);
 ```
 
 #### 优化后
-```
+
+```bash
 1. 获取列表: 1秒 (并行, 2x 加速)
    - 算法题和并发题并行: max(1秒, 1秒) = 1秒
 
@@ -254,18 +273,19 @@ create_problem_file(&problem, code, false);
 
 ### 性能提升总结
 
-| 指标 | 优化前 | 优化后 | 提升 |
-|------|--------|--------|------|
-| 列表获取 | 2秒 (串行) | 1秒 (并行) | **2x 加速** |
-| 并发控制 | 无限制 | 50/批 | **避免限流** |
-| 内存占用 | 高 (所有任务) | 低 (批量) | **显著降低** |
-| 进度反馈 | 每10个 | 每批 | **更清晰** |
-| 稳定性 | 不稳定 | 稳定 | **显著改善** |
+| 指标     | 优化前        | 优化后     | 提升         |
+| -------- | ------------- | ---------- | ------------ |
+| 列表获取 | 2秒 (串行)    | 1秒 (并行) | **2x 加速**  |
+| 并发控制 | 无限制        | 50/批      | **避免限流** |
+| 内存占用 | 高 (所有任务) | 低 (批量)  | **显著降低** |
+| 进度反馈 | 每10个        | 每批       | **更清晰**   |
+| 稳定性   | 不稳定        | 稳定       | **显著改善** |
 
 ## 用户体验改进
 
 ### 优化前的输出
-```
+
+```text
 Welcome to leetcode-rust system.
 [长时间无响应...]
 Problem 123 has no rust version.
@@ -273,13 +293,15 @@ Problem 123 has no rust version.
 ```
 
 **问题:**
+
 - 不知道在做什么
 - 不知道进度
 - 不知道还要等多久
 - 体验很差
 
 ### 优化后的输出
-```
+
+```text
 Welcome to leetcode-rust system.
 Fetching problem lists...
 Found 1000 problems to initialize
@@ -297,6 +319,7 @@ Successfully initialized 950 problems!
 ```
 
 **改进:**
+
 - ✅ 清楚知道在做什么
 - ✅ 实时看到进度
 - ✅ 知道总共有多少
@@ -306,7 +329,8 @@ Successfully initialized 950 problems!
 ## 并发模型
 
 ### 获取列表阶段 (并行)
-```
+
+```text
 时间轴:
 0s ─────────────────────> 1s
     [算法题请求]
@@ -315,7 +339,8 @@ Successfully initialized 950 problems!
 ```
 
 ### 处理问题阶段 (批量)
-```
+
+```text
 批次1: [问题 1-50]   ─> 批次内并行 (50个并发)
        ↓ 等待完成
 批次2: [问题 51-100] ─> 批次内并行 (50个并发)
@@ -333,12 +358,14 @@ Successfully initialized 950 problems!
 ### 为什么选择批量大小 50?
 
 **考虑因素:**
+
 1. **API 限流**: LeetCode API 可能有速率限制
 2. **网络稳定性**: 太多并发请求可能导致超时
 3. **进度反馈**: 需要合理的更新频率
 4. **内存占用**: 每个任务都有内存开销
 
 **测试结果:**
+
 - 10: 太多批次，串行开销大
 - 50: ✅ 最佳平衡点
 - 100: 偶尔出现超时
@@ -356,6 +383,7 @@ for problem_stat in batch {
 ```
 
 **原因:**
+
 - `batch` 是借用的切片
 - `async move` 需要拥有数据的所有权
 - 必须克隆才能移动到异步任务中
@@ -373,6 +401,7 @@ let concurrency_problems = concurrency_problems
 ```
 
 **好处:**
+
 - 更清晰的错误消息
 - 适当的错误传播
 - 不会 panic
@@ -380,6 +409,7 @@ let concurrency_problems = concurrency_problems
 ## 代码变更统计
 
 ### src/cli/commands.rs
+
 ```diff
 + 并发获取问题列表 (12 行)
 + 合并和过滤逻辑 (8 行)
@@ -393,6 +423,7 @@ let concurrency_problems = concurrency_problems
 ```
 
 ### src/fetcher/models.rs
+
 ```diff
 + Clone trait for StatWithStatus
 + Clone trait for Stat
@@ -404,6 +435,7 @@ let concurrency_problems = concurrency_problems
 ## 验证结果
 
 ### 构建测试
+
 ```bash
 $ cargo build
    Compiling leetcode-rust v0.1.0
@@ -411,6 +443,7 @@ $ cargo build
 ```
 
 ### 功能测试
+
 - ✅ 问题列表并发获取正常工作
 - ✅ 批量处理正确执行
 - ✅ 进度反馈准确显示
@@ -420,6 +453,7 @@ $ cargo build
 ## 未来优化建议
 
 ### 1. 动态批量大小
+
 ```rust
 let batch_size = match network_quality {
     NetworkQuality::Excellent => 100,
@@ -429,6 +463,7 @@ let batch_size = match network_quality {
 ```
 
 ### 2. 失败重试机制
+
 ```rust
 const MAX_RETRIES: u32 = 3;
 for retry in 0..MAX_RETRIES {
@@ -444,6 +479,7 @@ for retry in 0..MAX_RETRIES {
 ```
 
 ### 3. 进度条
+
 ```rust
 use indicatif::{ProgressBar, ProgressStyle};
 
@@ -457,6 +493,7 @@ pb.inc(1);
 ```
 
 ### 4. 估计剩余时间
+
 ```rust
 let elapsed = start_time.elapsed();
 let rate = completed as f64 / elapsed.as_secs_f64();
@@ -465,6 +502,7 @@ println!("Estimated time remaining: {:.1}s", remaining);
 ```
 
 ### 5. 缓存机制
+
 ```rust
 // 缓存问题列表，避免重复请求
 if let Some(cached) = cache.get("problems") {
@@ -473,6 +511,7 @@ if let Some(cached) = cache.get("problems") {
 ```
 
 ### 6. 断点续传
+
 ```rust
 // 保存进度
 let checkpoint = Checkpoint {
@@ -492,18 +531,21 @@ if let Some(checkpoint) = load_checkpoint()? {
 通过这次性能优化，我们实现了：
 
 ### 量化改进
+
 - ✅ **2x 加速** - 问题列表获取速度提升
 - ✅ **50x 并发控制** - 从无限制到每批 50 个
 - ✅ **显著降低** - 内存占用减少
 - ✅ **避免限流** - 稳定的 API 访问
 
 ### 质量改进
+
 - ✅ **更好的用户体验** - 清晰的进度反馈
 - ✅ **更稳定的性能** - 批量处理避免拥塞
 - ✅ **更好的错误处理** - 清晰的错误消息
 - ✅ **更清晰的代码** - 移除冗余和不必要的代码
 
 ### 架构改进
+
 - ✅ **并发模型** - 合理的并发控制
 - ✅ **批量处理** - 可扩展的处理模式
 - ✅ **进度跟踪** - 完整的状态反馈

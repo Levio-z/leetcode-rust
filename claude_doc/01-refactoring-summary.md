@@ -11,6 +11,7 @@
 ## 重构前的问题
 
 ### main.rs (376 行)
+
 - **God 函数**: `main()` 函数长达 124 行，处理用户输入、命令路由、异步协调和文件 I/O
 - **模板处理分散**: 5 个函数包含 30+ 个字符串替换
 - **代码异味**:
@@ -20,6 +21,7 @@
 - **关注点混杂**: 异步/同步代码、文件 I/O、业务逻辑全部交织在一起
 
 ### fetcher.rs (235 行)
+
 - **关注点混杂**: HTTP 逻辑与数据转换交织
 - **代码重复**: 同步和异步实现之间有 80% 的重复代码
 - **HTTP 客户端不一致**: 同时使用 `reqwest::blocking` 和 `surf`
@@ -32,7 +34,7 @@
 
 创建 `src/cli/` 模块结构：
 
-```
+```bash
 src/cli/
 ├── mod.rs           # 公共 API
 ├── commands.rs      # 命令解析和路由
@@ -42,7 +44,8 @@ src/cli/
 
 #### 文件说明
 
-**1. src/cli/template.rs (114 行)**
+1. src/cli/template.rs (114 行)
+
 - `generate_extra_imports()` - 基于代码内容生成额外的导入语句
 - `format_problem_url()` - 格式化问题 URL
 - `format_discuss_url()` - 格式化讨论 URL
@@ -50,10 +53,14 @@ src/cli/
 - `clean_html_description()` - 清理 HTML 标签
 
 **关键改进:**
+
 ```rust
 // 优化前: 24 个 match 分支
 match return_type {
-    "ListNode" => re.replace(&code, "{\n        Some(Box::new(ListNode::new(0)))\n    }"),
+    "ListNode" => re.replace(
+        &code,
+        "{\n        Some(Box::new(ListNode::new(0)))\n    }"
+    ),
     "boolean" => re.replace(&code, "{\n        false\n    }"),
     // ... 22 more branches
 }
@@ -72,19 +79,22 @@ if let Some(replacement) = return_map.get(return_type) {
 }
 ```
 
-**2. src/cli/handlers.rs (124 行)**
+(1)src/cli/handlers.rs (124 行)
+
 - `get_initialized_problem_ids()` - 从 problem/mod.rs 获取已初始化的问题 ID
 - `find_problem_file()` - 通过 ID 查找问题文件名
 - `create_problem_file()` - 从获取的问题数据创建问题文件
 - `move_to_solution()` - 将问题文件移动到解决方案目录
 
-**3. src/cli/commands.rs (185 行)**
+(2)src/cli/commands.rs (185 行)
+
 - `Command` 枚举 - 定义支持的命令类型
 - `parse_command()` - 将用户输入解析为 Command
 - `execute_command()` - 执行解析后的命令
 - `execute_all_command()` - 处理 "all" 命令的特殊逻辑
 
-**4. src/cli/mod.rs (12 行)**
+(3)src/cli/mod.rs (12 行)
+
 - 重新导出公共 API
 - 提供清晰的模块接口
 
@@ -92,7 +102,7 @@ if let Some(replacement) = return_map.get(return_type) {
 
 创建 `src/fetcher/` 模块结构：
 
-```
+```bash
 src/fetcher/
 ├── mod.rs           # 公共 API (重新导出)
 ├── client.rs        # HTTP 客户端抽象
@@ -101,9 +111,10 @@ src/fetcher/
 └── transform.rs     # 响应 → 领域转换
 ```
 
-#### 文件说明
+#### Fetcher 模块文件说明
 
-**1. src/fetcher/api_models.rs (111 行)**
+##### 1. src/fetcher/api_models.rs (111 行)
+
 - `Query` - GraphQL 查询结构
 - `RawProblem`, `Data`, `Question` - API 响应结构
 - `ProblemsResponse` - 问题列表响应
@@ -112,7 +123,8 @@ src/fetcher/
 
 **关键点:** 所有结构都是 `pub(crate)`，对外部隐藏实现细节
 
-**2. src/fetcher/models.rs (89 行)**
+##### 2. src/fetcher/models.rs (89 行)
+
 - `Problem` - 公共领域模型
 - `CodeDefinition` - 代码定义
 - `Problems` - 问题集合
@@ -120,7 +132,8 @@ src/fetcher/
 
 **关键点:** 清晰的公共 API，隐藏内部实现
 
-**3. src/fetcher/transform.rs (77 行)**
+##### 3. src/fetcher/transform.rs (77 行)
+
 - `transform_raw_problem()` - 将 API 响应转换为领域模型
 - `transform_raw_problem_async()` - 异步版本的转换
 - `extract_return_type()` - 从元数据 JSON 提取返回类型
@@ -128,7 +141,8 @@ src/fetcher/
 
 **关键改进:** 消除同步/异步路径之间的重复
 
-**4. src/fetcher/client.rs (125 行)**
+##### 4. src/fetcher/client.rs (125 行)
+
 - `get_problem()` - 同步获取特定问题
 - `get_problem_async()` - 异步获取特定问题
 - `get_problems()` - 获取所有算法问题
@@ -136,7 +150,8 @@ src/fetcher/
 
 **关键改进:** 集中的 HTTP 逻辑，更好的错误处理
 
-**5. src/fetcher/mod.rs (8 行)**
+##### 5. src/fetcher/mod.rs (8 行)
+
 - 重新导出公共类型和函数
 - 隐藏内部模块
 
@@ -177,6 +192,7 @@ fn main() {
 ```
 
 **关键改进:**
+
 - 只处理用户交互循环
 - 所有业务逻辑委托给 cli 模块
 - 清晰的错误处理
@@ -199,13 +215,13 @@ pub mod solution_aylei;
 
 ### 代码行数对比
 
-| 文件 | 重构前 | 重构后 | 变化 |
-|------|--------|--------|------|
-| main.rs | 376 | 47 | -329 (-87.5%) |
-| fetcher.rs | 235 | N/A (已删除) | -235 |
-| **新 CLI 模块** | 0 | 435 | +435 |
-| **新 fetcher 模块** | 0 | 410 | +410 |
-| **净变化** | 611 | 892 | +281 |
+| 文件                | 重构前 | 重构后       | 变化          |
+| ------------------- | ------ | ------------ | ------------- |
+| main.rs             | 376    | 47           | -329 (-87.5%) |
+| fetcher.rs          | 235    | N/A (已删除) | -235          |
+| **新 CLI 模块**     | 0      | 435          | +435          |
+| **新 fetcher 模块** | 0      | 410          | +410          |
+| **净变化**          | 611    | 892          | +281          |
 
 ### 代码质量改进
 
@@ -220,12 +236,14 @@ pub mod solution_aylei;
 ## 验证结果
 
 ### 构建状态
+
 - ✅ `cargo build` - 成功
 - ✅ `cargo build --bin leetcode-rust` - 成功
 - ✅ `cargo test` - 284 个测试通过（4 个预先存在的失败与重构无关）
 
 ### 模块结构
-```
+
+```bash
 src/
 ├── main.rs (47 行) - 最小化的 CLI 入口点
 ├── lib.rs (8 行) - 模块声明
