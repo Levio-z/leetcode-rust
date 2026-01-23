@@ -39,7 +39,7 @@ pub struct Problems {
 }
 
 /// Problem statistics with status
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StatWithStatus {
     pub stat: Stat,
     pub difficulty: Difficulty,
@@ -56,7 +56,7 @@ impl StatWithStatus {
 }
 
 /// Problem statistics
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Stat {
     question_id: u32,
     #[serde(rename = "question__article__slug")]
@@ -73,7 +73,7 @@ pub struct Stat {
     is_new_question: bool,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Difficulty {
     level: u32,
 }
