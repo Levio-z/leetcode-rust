@@ -15,6 +15,7 @@ futures = { version = "0.3.31", features = ["thread-pool"] }
 surf = "2.3.1"
 openssl-sys = { version = "0.9.110", features = ["vendored"] }
 fmt = "0.1.0"
+clap = { version = "4.5", features = ["derive"] }
 
 [lib]
 doctest = false

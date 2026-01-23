@@ -1,18 +1,69 @@
 # My Leetcode Solution in Rust
 
-Run `cargo run {id}` to initialize the template submission file of "question #id".
+A command-line tool to generate and manage LeetCode problem templates in Rust.
 
-Run `cargo test test_{id}` to test the solution for "question #id".
+## Installation
 
-对于大部分难度为 Hard 的问题, 会有中文的思路注释
+### Install to Local System
 
-Working in progress, to do:
+Install the `lc` command to `/usr/local/bin`:
 
-- [ ] auto generation of solution list (when 100 problems solved)
+```bash
+make install
+```
+
+### Uninstall
+
+Remove the installed binary:
+
+```bash
+make uninstall
+```
 
 ## Usage
 
-* Remove all the solution .rs
-* Clean lib.rs file
-* Start your leetcode journey in rust by typing `cargo run {question_id}`
+After installation, use the `lc` command:
 
+### Fetch a Specific Problem
+
+```bash
+lc 01      # Fetch problem 01
+lc 42      # Fetch problem 42
+lc 100     # Fetch problem 100
+```
+
+### Generate a Random Problem
+
+```bash
+lc --random
+lc -r
+```
+
+### Move Problem to Solution Directory
+
+```bash
+lc 01 --solve
+lc 01 -s
+```
+
+### Initialize All Problems
+
+```bash
+lc --all
+lc -a
+```
+
+### Show Help
+
+```bash
+lc --help
+```
+
+## Command Reference
+
+| Command               | Description                        |
+| --------------------- | ---------------------------------- |
+| `lc <id>`             | Fetch and initialize problem by ID |
+| `lc -r, --random`     | Generate a random problem          |
+| `lc <id> -s, --solve` | Move problem to solution directory |
+| `lc -h, --help`       | Show help message                  |

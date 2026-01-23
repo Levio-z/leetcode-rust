@@ -6,42 +6,65 @@ extern crate serde_json;
 mod fetcher;
 mod cli;
 
-use std::io;
+use clap::Parser;
+use cli::{execute_command, get_initialized_problem_ids, Command};
 
-use cli::{execute_command, get_initialized_problem_ids, parse_command};
+/// LeetCode Rust CLI - Generate and manage LeetCode problem templates
+#[derive(Parser)]
+#[command(name = "lc")]
+#[command(about = "LeetCode Rust problem generator", long_about = None)]
+struct Cli {
+    /// Problem ID to fetch (e.g., 01, 42, 100)
+    problem_id: Option<String>,
+
+    /// Generate a random problem
+    #[arg(short = 'r', long = "random")]
+    random: bool,
+
+    /// Move problem to solution directory
+    #[arg(short = 's', long = "solve")]
+    solve: bool,
+
+    /// Initialize all problems
+    #[arg(short = 'a', long = "all")]
+    all: bool,
+}
 
 /// main() helps to generate the submission template .rs
 fn main() {
-    println!("Welcome to leetcode-rust system.\n");
+    let cli = Cli::parse();
     let initialized_ids = get_initialized_problem_ids();
 
-    loop {
-        println!(
-            "Please enter a frontend problem id, \n\
-            or \"random\" to generate a random one, \n\
-            or \"solve $i\" to move problem to solution/, \n\
-            or \"all\" to initialize all problems \n"
-        );
+    let command = if cli.all {
+        Command::All
+    } else if cli.random {
+        Command::Random
+    } else if let Some(id_str) = cli.problem_id {
+        if cli.solve {
+            // Parse the problem ID for solve command
+            let id = id_str.parse::<u32>().unwrap_or_else(|_| {
+                eprintln!("Error: Invalid problem ID: {}", id_str);
+                std::process::exit(1);
+            });
+            Command::Solve(id)
+        } else {
+            // Parse the problem ID for fetch command
+            let id = id_str.parse::<u32>().unwrap_or_else(|_| {
+                eprintln!("Error: Invalid problem ID: {}", id_str);
+                std::process::exit(1);
+            });
+            Command::FetchById(id)
+        }
+    } else {
+        eprintln!("Error: Please provide a problem ID or use --random/--all");
+        std::process::exit(1);
+    };
 
-        let mut id_arg = String::new();
-        io::stdin()
-            .read_line(&mut id_arg)
-            .expect("Failed to read line");
-
-        match parse_command(&id_arg) {
-            Ok(cmd) => match execute_command(cmd, &initialized_ids) {
-                Ok(should_exit) => {
-                    if should_exit {
-                        break;
-                    }
-                }
-                Err(e) => {
-                    eprintln!("Error: {}", e);
-                }
-            },
-            Err(e) => {
-                eprintln!("Error parsing command: {}", e);
-            }
+    match execute_command(command, &initialized_ids) {
+        Ok(_) => {},
+        Err(e) => {
+            eprintln!("Error: {}", e);
+            std::process::exit(1);
         }
     }
 }
