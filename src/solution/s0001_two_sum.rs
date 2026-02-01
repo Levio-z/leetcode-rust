@@ -56,6 +56,7 @@ use std::collections::HashMap;
 impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         // 创建hash表
+        // value  ──▶  index idx 下标数组，通过值去找到对应的下标
         let mut idx = HashMap::with_capacity(nums.len());
         for (i, &x) in nums.iter().enumerate() {
             match idx.get(&(target - x)) {

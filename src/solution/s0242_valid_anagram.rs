@@ -33,10 +33,14 @@ impl Solution {
         let mut byte = [0; 26];
         s.bytes().for_each(|b| byte[(b - b'a') as usize] += 1);
         t.bytes().for_each(|b| byte[(b - b'a') as usize] -= 1);
+        // all 方法会返回一个布尔值，表示迭代器中的所有元素是否都满足给定的条件
+        // all 是消耗性方法，调用后迭代器将被消耗，无法再次使用
+        // 消耗迭代器（推进游标）
         byte.iter().all(|x| *x == 0)
     }
     pub fn is_anagram2(s: String, t: String) -> bool {
         let mut byte = std::collections::HashMap::new();
+        // or_insert 返回的是值的可变引用 &'a mut V
         s.bytes().for_each(|b| *byte.entry(b).or_insert(0) += 1);
         t.bytes().for_each(|b| *byte.entry(b).or_insert(0) -= 1);
         byte.iter().all(|(_, x)| *x == 0)

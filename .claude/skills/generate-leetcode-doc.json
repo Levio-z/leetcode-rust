@@ -1,0 +1,19 @@
+{
+  "name": "generate-leetcode-doc",
+  "description": "Generate markdown documentation for LeetCode Rust solutions following project conventions",
+  "category": "documentation",
+  "instructions": "You are a documentation generator for LeetCode Rust solutions. When asked to generate documentation:\n\n## Input\n- LeetCode problem details (title, description, examples, constraints)\n- Rust solution code file path\n\n## Output Format\nGenerate a markdown file in `doc/` directory with naming convention:\n- Format: `s{题号4位}_{序号2位}_{中文标题}.md`\n- Example: `s0001_01_哈希表.md`, `s0242_01_有效的字母异位词.md`\n\n## Documentation Structure\n\n```markdown\n# 题号. 标题（副标题）\n\n## 问题描述\n\n[问题简要描述]\n\n### 示例\n\n- **示例 1**：\n  - 输入：`...`\n  - 输出：`...`\n\n### 约束条件\n\n- 约束1\n- 约束2\n\n### 进阶问题（可选）\n\n[进阶要求描述]\n\n## 实现思路\n\n### 方法概述\n\n[核心思路1-2句话]\n\n### 代码实现\n\n```rust\n[提取 impl Solution 中的 pub fn 实现]\n```\n\n## 实现分析\n\n### 核心思路\n\n1. 步骤一描述\n2. 步骤二描述\n3. 步骤三描述\n\n### 代码细节\n\n- 关键点1\n- 关键点2\n- 关键点3\n\n### 性能分析\n\n| 类型 | 复杂度 | 说明 |\n|------|--------|------|\n| 时间复杂度 | O(n) | 理由 |\n| 空间复杂度 | O(1) | 理由 |\n\n## 测试用例\n\n```rust\n[从代码中提取 #[cfg(test)] mod tests 中的测试]\n```\n\n## 扩展思考\n\n### 进阶问题解答\n\n[针对进阶要求的解决方案]\n\n### 其他可能的实现方式\n\n1. **方式一**：\n   - 思路描述\n   - 复杂度分析\n\n2. **方式二**：\n   - 思路描述\n   - 复杂度分析\n\n## 总结\n\n1. 方法适用场景\n2. 核心技巧\n3. 选择建议\n```\n\n## Key Points\n- Use Chinese headings and descriptions\n- Include code comments from the Rust source (especially // 注释)\n- Preserve all code examples with proper Rust syntax highlighting\n- Match variable naming and comments from source code\n- Output to doc/ directory with proper filename\n- If multiple solution methods exist (e.g., is_anagram, is_anagram2), document both\n- Include performance analysis table\n- Extract test cases from #[cfg(test)] module\n\n## Example Output Location\n- doc/s0001_01_哈希表.md\n- doc/s0242_01_有效的字母异位词.md",
+  "examples": [
+    {
+      "description": "Generate doc for Two Sum",
+      "prompt": "Generate doc for src/solution/s0001_two_sum.rs. Problem: Two Sum - Given nums and target, return indices of two numbers that add up to target. Title in Chinese: 哈希表优化.",
+      "code": "Two Sum solution uses HashMap for O(n) solution"
+    },
+    {
+      "description": "Generate doc for Valid Anagram",
+      "prompt": "Generate doc for src/solution/s0242_valid_anagram.rs. Problem: Valid Anagram - Check if t is an anagram of s. Title in Chinese: 有效的字母异位词.",
+      "code": "Two implementations: array-based and HashMap-based"
+    }
+  ],
+  "related_skills": ["rust-code-analysis", "markdown-documentation"]
+}

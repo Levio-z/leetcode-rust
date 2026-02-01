@@ -29,7 +29,7 @@ pub struct Solution {}
 impl Solution {
     pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
         let mut set = nums1.into_iter().collect::<std::collections::HashSet<_>>();
-        nums2.iter().flat_map(|x| set.take(x)).collect()
+        nums2.iter().filter_map(|x| set.take(x)).collect()
     }
 }
 
