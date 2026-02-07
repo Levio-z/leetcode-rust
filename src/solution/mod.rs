@@ -24,3 +24,4 @@ mod s1472_design_browser_history;
 mod s0383_ransom_note;
 mod s0344_reverse_string;
 mod s0541_reverse_string_ii;
+mod s0151_reverse_words_in_a_string;
