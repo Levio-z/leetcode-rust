@@ -1,36 +1,40 @@
-/**
- * [220] Contains Duplicate III
- *
- * Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
- *
- * <div>
- * Example 1:
- *
- *
- * Input: nums = <span id="example-input-1-1">[1,2,3,1]</span>, k = <span id="example-input-1-2">3</span>, t = <span id="example-input-1-3">0</span>
- * Output: <span id="example-output-1">true</span>
- *
- *
- * <div>
- * Example 2:
- *
- *
- * Input: nums = <span id="example-input-2-1">[1,0,1,1]</span>, k = <span id="example-input-2-2">1</span>, t = <span id="example-input-2-3">2</span>
- * Output: <span id="example-output-2">true</span>
- *
- *
- * <div>
- * Example 3:
- *
- *
- * Input: nums = <span id="example-input-3-1">[1,5,9,1,5,9]</span>, k = <span id="example-input-3-2">2</span>, t = <span id="example-input-3-3">3</span>
- * Output: <span id="example-output-3">false</span>
- *
- * </div>
- * </div>
- * </div>
- *
- */
+/// [220] Contains Duplicate III
+///
+/// Given an array of integers, find out whether there are two distinct indices
+/// i and j in the array such that the absolute difference between nums[i] and
+/// nums[j] is at most t and the absolute difference between i and j is at most
+/// k.
+///
+/// <div>
+/// Example 1:
+///
+///
+/// Input: nums = <span id="example-input-1-1">[1,2,3,1]</span>, k = <span
+/// id="example-input-1-2">3</span>, t = <span id="example-input-1-3">0</span>
+/// Output: <span id="example-output-1">true</span>
+///
+///
+/// <div>
+/// Example 2:
+///
+///
+/// Input: nums = <span id="example-input-2-1">[1,0,1,1]</span>, k = <span
+/// id="example-input-2-2">1</span>, t = <span id="example-input-2-3">2</span>
+/// Output: <span id="example-output-2">true</span>
+///
+///
+/// <div>
+/// Example 3:
+///
+///
+/// Input: nums = <span id="example-input-3-1">[1,5,9,1,5,9]</span>, k = <span
+/// id="example-input-3-2">2</span>, t = <span id="example-input-3-3">3</span>
+/// Output: <span id="example-output-3">false</span>
+///
+/// </div>
+/// </div>
+/// </div>
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/contains-duplicate-iii/
@@ -77,8 +81,10 @@ mod tests {
 
     #[test]
     fn test_220() {
-        // assert_eq!(Solution::contains_nearby_almost_duplicate(vec![1,5,9,1,5,9], 2, 3), false);
-        // assert_eq!(Solution::contains_nearby_almost_duplicate(vec![1,2,3,1], 3, 0), true);
+        // assert_eq!(Solution::contains_nearby_almost_duplicate(vec![1,5,9,1,5,9], 2,
+        // 3), false);
+        // assert_eq!(Solution::contains_nearby_almost_duplicate(vec![1,2,3,1], 3, 0),
+        // true);
         assert_eq!(
             Solution::contains_nearby_almost_duplicate(vec![-1, 2147483647], 1, 2147483647),
             false

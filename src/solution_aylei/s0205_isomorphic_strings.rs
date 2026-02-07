@@ -1,35 +1,35 @@
-/**
- * [205] Isomorphic Strings
- *
- * Given two strings s and t, determine if they are isomorphic.
- *
- * Two strings are isomorphic if the characters in s can be replaced to get t.
- *
- * All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.
- *
- * Example 1:
- *
- *
- * Input: s = "egg", t = "add"
- * Output: true
- *
- *
- * Example 2:
- *
- *
- * Input: s = "foo", t = "bar"
- * Output: false
- *
- * Example 3:
- *
- *
- * Input: s = "paper", t = "title"
- * Output: true
- *
- * Note:<br />
- * You may assume both s and t have the same length.
- *
- */
+/// [205] Isomorphic Strings
+///
+/// Given two strings s and t, determine if they are isomorphic.
+///
+/// Two strings are isomorphic if the characters in s can be replaced to get t.
+///
+/// All occurrences of a character must be replaced with another character while
+/// preserving the order of characters. No two characters may map to the same
+/// character but a character may map to itself.
+///
+/// Example 1:
+///
+///
+/// Input: s = "egg", t = "add"
+/// Output: true
+///
+///
+/// Example 2:
+///
+///
+/// Input: s = "foo", t = "bar"
+/// Output: false
+///
+/// Example 3:
+///
+///
+/// Input: s = "paper", t = "title"
+/// Output: true
+///
+/// Note:<br />
+/// You may assume both s and t have the same length.
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/isomorphic-strings/
@@ -37,9 +37,10 @@ pub struct Solution {}
 
 // submission codes start here
 
-use std::char;
-use std::collections::hash_map::Entry;
-use std::collections::HashMap;
+use std::{
+    char,
+    collections::{HashMap, hash_map::Entry},
+};
 impl Solution {
     pub fn is_isomorphic(s: String, t: String) -> bool {
         Solution::code(s) == Solution::code(t)

@@ -15,7 +15,7 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= n <= 20
+///     1 <= n <= 20
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/spiral-matrix-ii/

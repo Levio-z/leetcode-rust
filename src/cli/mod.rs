@@ -2,7 +2,7 @@ mod commands;
 mod handlers;
 mod template;
 
-pub use commands::{execute_command, parse_command, Command};
+pub use commands::{Command, execute_command, parse_command};
 pub use handlers::{
     create_problem_file, find_problem_file, get_initialized_problem_ids, move_to_solution,
 };

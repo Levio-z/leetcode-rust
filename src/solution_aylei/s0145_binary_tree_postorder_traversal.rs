@@ -1,34 +1,31 @@
-/**
- * [145] Binary Tree Postorder Traversal
- *
- * Given a binary tree, return the postorder traversal of its nodes' values.
- *
- * Example:
- *
- *
- * Input: [1,null,2,3]
- *    1
- *     \
- *      2
- *     /
- *    3
- *
- * Output: [3,2,1]
- *
- *
- * Follow up: Recursive solution is trivial, could you do it iteratively?
- *
- */
+/// [145] Binary Tree Postorder Traversal
+///
+/// Given a binary tree, return the postorder traversal of its nodes' values.
+///
+/// Example:
+///
+///
+/// Input: [1,null,2,3]
+///    1
+///     \
+///      2
+///     /
+///    3
+///
+/// Output: [3,2,1]
+///
+///
+/// Follow up: Recursive solution is trivial, could you do it iteratively?
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/binary-tree-postorder-traversal/
 // discuss: https://leetcode.com/problems/binary-tree-postorder-traversal/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn postorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
         let mut res = Vec::new();

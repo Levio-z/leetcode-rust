@@ -1,27 +1,27 @@
-/**
- * [19] Remove Nth Node From End of List
- *
- * Given a linked list, remove the n-th node from the end of list and return its head.
- *
- * Example:
- *
- *
- * Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.
- *
- * After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5.
- *
- *
- * Note:
- *
- * Given n will always be valid.
- *
- * Follow up:
- *
- * Could you do this in one pass?
- *
- */
+/// [19] Remove Nth Node From End of List
+///
+/// Given a linked list, remove the n-th node from the end of list and return
+/// its head.
+///
+/// Example:
+///
+///
+/// Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.
+///
+/// After removing the second node from the end, the linked list becomes
+/// 1-&gt;2-&gt;3-&gt;5.
+///
+///
+/// Note:
+///
+/// Given n will always be valid.
+///
+/// Follow up:
+///
+/// Could you do this in one pass?
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
+use crate::util::linked_list::{ListNode, to_list};
 
 // problem: https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 // discuss: https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/?currentPage=1&orderBy=most_votes&query=

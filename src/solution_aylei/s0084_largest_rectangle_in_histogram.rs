@@ -1,28 +1,30 @@
-/**
- * [84] Largest Rectangle in Histogram
- *
- * Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
- *
- *  
- *
- * <img src="https://assets.leetcode.com/uploads/2018/10/12/histogram.png" style="width: 188px; height: 204px;" /><br />
- * <small>Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].</small>
- *
- *  
- *
- * <img src="https://assets.leetcode.com/uploads/2018/10/12/histogram_area.png" style="width: 188px; height: 204px;" /><br />
- * <small>The largest rectangle is shown in the shaded area, which has area = 10 unit.</small>
- *
- *  
- *
- * Example:
- *
- *
- * Input: [2,1,5,6,2,3]
- * Output: 10
- *
- *
- */
+/// [84] Largest Rectangle in Histogram
+///
+/// Given n non-negative integers representing the histogram's bar height where
+/// the width of each bar is 1, find the area of largest rectangle in the
+/// histogram.
+///
+///  
+///
+/// <img src="https://assets.leetcode.com/uploads/2018/10/12/histogram.png" style="width: 188px; height: 204px;" /><br />
+/// <small>Above is a histogram where width of each bar is 1, given height =
+/// [2,1,5,6,2,3].</small>
+///
+///  
+///
+/// <img src="https://assets.leetcode.com/uploads/2018/10/12/histogram_area.png" style="width: 188px; height: 204px;" /><br />
+/// <small>The largest rectangle is shown in the shaded area, which has area =
+/// 10 unit.</small>
+///
+///  
+///
+/// Example:
+///
+///
+/// Input: [2,1,5,6,2,3]
+/// Output: 10
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/largest-rectangle-in-histogram/
@@ -30,7 +32,8 @@ pub struct Solution {}
 
 // submission codes start here
 
-// record the height and start position using 2 stack, thus we reuse the previously scanned information
+// record the height and start position using 2 stack, thus we reuse the
+// previously scanned information
 impl Solution {
     pub fn largest_rectangle_area(heights: Vec<i32>) -> i32 {
         let mut positions = Vec::new();

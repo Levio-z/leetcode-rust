@@ -41,8 +41,8 @@
 /// Note:
 ///
 /// <ol>
-/// 	1 <= A.length <= 100
-/// 	A[i] is a permutation of [1, 2, ..., A.length]
+///     1 <= A.length <= 100
+///     A[i] is a permutation of [1, 2, ..., A.length]
 /// </ol>
 pub struct Solution {}
 

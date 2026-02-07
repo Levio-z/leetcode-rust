@@ -1,7 +1,9 @@
 use serde_json::Value;
 
-use super::api_models::{RawProblem, StatWithStatusInternal};
-use super::models::{Problem, StatWithStatus};
+use super::{
+    api_models::{RawProblem, StatWithStatusInternal},
+    models::{Problem, StatWithStatus},
+};
 
 /// Transform raw API problem response into domain Problem model
 pub(crate) fn transform_raw_problem(
@@ -60,12 +62,10 @@ pub(crate) fn transform_raw_problem_async(
 
 /// Extract return type from metadata JSON
 fn extract_return_type(meta_data: &str) -> Result<String, String> {
-    let v: Value = serde_json::from_str(meta_data)
-        .map_err(|e| format!("Failed to parse metadata: {}", e))?;
+    let v: Value =
+        serde_json::from_str(meta_data).map_err(|e| format!("Failed to parse metadata: {}", e))?;
 
-    Ok(v["return"]["type"]
-        .to_string()
-        .replace("\"", ""))
+    Ok(v["return"]["type"].to_string().replace("\"", ""))
 }
 
 /// Convert internal API model to public domain model

@@ -1,36 +1,35 @@
-/**
- * [222] Count Complete Tree Nodes
- *
- * Given a complete binary tree, count the number of nodes.
- *
- * Note:
- *
- * <u>Definition of a complete binary tree from <a href="http://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees" target="_blank">Wikipedia</a>:</u><br />
- * In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes inclusive at the last level h.
- *
- * Example:
- *
- *
- * Input:
- *     1
- *    / \
- *   2   3
- *  / \  /
- * 4  5 6
- *
- * Output: 6
- *
- */
+/// [222] Count Complete Tree Nodes
+///
+/// Given a complete binary tree, count the number of nodes.
+///
+/// Note:
+///
+/// <u>Definition of a complete binary tree from <a href="http://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees" target="_blank">Wikipedia</a>:</u><br />
+/// In a complete binary tree every level, except possibly the last, is
+/// completely filled, and all nodes in the last level are as far left as
+/// possible. It can have between 1 and 2^h nodes inclusive at the last level h.
+///
+/// Example:
+///
+///
+/// Input:
+///     1
+///    / \
+///   2   3
+///  / \  /
+/// 4  5 6
+///
+/// Output: 6
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/count-complete-tree-nodes/
 // discuss: https://leetcode.com/problems/count-complete-tree-nodes/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn count_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         // 0. get the hight of full nodes

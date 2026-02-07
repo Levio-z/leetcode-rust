@@ -20,7 +20,6 @@
 ///   [1,2],
 ///   []
 /// ]
-///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/subsets/

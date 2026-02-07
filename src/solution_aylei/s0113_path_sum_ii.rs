@@ -1,45 +1,42 @@
-/**
- * [113] Path Sum II
- *
- * Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
- *
- * Note: A leaf is a node with no children.
- *
- * Example:
- *
- * Given the below binary tree and sum = 22,
- *
- *
- *       5
- *      / \
- *     4   8
- *    /   / \
- *   11  13  4
- *  /  \    / \
- * 7    2  5   1
- *
- *
- * Return:
- *
- *
- * [
- *    [5,4,11,2],
- *    [5,8,4,5]
- * ]
- *
- *
- */
+/// [113] Path Sum II
+///
+/// Given a binary tree and a sum, find all root-to-leaf paths where each path's
+/// sum equals the given sum.
+///
+/// Note: A leaf is a node with no children.
+///
+/// Example:
+///
+/// Given the below binary tree and sum = 22,
+///
+///
+///       5
+///      / \
+///     4   8
+///    /   / \
+///   11  13  4
+///  /  \    / \
+/// 7    2  5   1
+///
+///
+/// Return:
+///
+///
+/// [
+///    [5,4,11,2],
+///    [5,8,4,5]
+/// ]
+///
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/path-sum-ii/
 // discuss: https://leetcode.com/problems/path-sum-ii/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
-use std::collections::VecDeque;
-use std::rc::Rc;
+use std::{collections::VecDeque, rc::Rc};
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, sum: i32) -> Vec<Vec<i32>> {
         let mut res = Vec::new();

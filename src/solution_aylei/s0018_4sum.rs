@@ -1,26 +1,26 @@
-/**
- * [18] 4Sum
- *
- * Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
- *
- * Note:
- *
- * The solution set must not contain duplicate quadruplets.
- *
- * Example:
- *
- *
- * Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
- *
- * A solution set is:
- * [
- *   [-1,  0, 0, 1],
- *   [-2, -1, 1, 2],
- *   [-2,  0, 0, 2]
- * ]
- *
- *
- */
+/// [18] 4Sum
+///
+/// Given an array nums of n integers and an integer target, are there elements
+/// a, b, c, and d in nums such that a + b + c + d = target? Find all unique
+/// quadruplets in the array which gives the sum of target.
+///
+/// Note:
+///
+/// The solution set must not contain duplicate quadruplets.
+///
+/// Example:
+///
+///
+/// Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
+///
+/// A solution set is:
+/// [
+///   [-1,  0, 0, 1],
+///   [-2, -1, 1, 2],
+///   [-2,  0, 0, 2]
+/// ]
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/4sum/
@@ -31,8 +31,7 @@ pub struct Solution {}
 // TODO: change to faster N^3 solution... maybe
 // this is a N^2 * logN solution, but slower than N^3 solution
 // iterate all combinations and the sum of 2 elements, then use one-round hash
-use std::collections::BTreeMap;
-use std::collections::HashSet;
+use std::collections::{BTreeMap, HashSet};
 impl Solution {
     pub fn four_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
         if nums.len() < 4 {

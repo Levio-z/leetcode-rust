@@ -48,7 +48,6 @@
 /// elements. for (int i = 0; i < len; i++) {
 ///     print(nums[i]);
 /// }
-///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/remove-element/

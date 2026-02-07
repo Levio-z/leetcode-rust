@@ -1,22 +1,21 @@
-/**
- * [131] Palindrome Partitioning
- *
- * Given a string s, partition s such that every substring of the partition is a palindrome.
- *
- * Return all possible palindrome partitioning of s.
- *
- * Example:
- *
- *
- * Input: "aab"
- * Output:
- * [
- *   ["aa","b"],
- *   ["a","a","b"]
- * ]
- *
- *
- */
+/// [131] Palindrome Partitioning
+///
+/// Given a string s, partition s such that every substring of the partition is
+/// a palindrome.
+///
+/// Return all possible palindrome partitioning of s.
+///
+/// Example:
+///
+///
+/// Input: "aab"
+/// Output:
+/// [
+///   ["aa","b"],
+///   ["a","a","b"]
+/// ]
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/palindrome-partitioning/
@@ -24,21 +23,20 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-记 n 个字符的回文拆分方式是 f(n) 种, 则:
-
-f(n) = (0..n).iter().fold(0, |acc, i| {
-   if is_palindrome(s[i..n]) { acc + f(i-1) } else { acc }
-})
-
-按这种方式向上递推即可, 时间复杂度为 O(N^3), 空间复杂度 O(N), 显然, is_palindrome 这一步仍然有重复计算
-
-is_palindrome(s[i..n]) = s[i] == s[n] && is_palindrome(s[i+1..n-1])
-
-存储所有 i, n 的 is_palindrome 结果, 则可以优化 is_palindrome 的时间到 O(1)
-
-最后的复杂度: 时间 O(N^2), 空间 O(N^2)
-*/
+// 记 n 个字符的回文拆分方式是 f(n) 种, 则:
+//
+// f(n) = (0..n).iter().fold(0, |acc, i| {
+// if is_palindrome(s[i..n]) { acc + f(i-1) } else { acc }
+// })
+//
+// 按这种方式向上递推即可, 时间复杂度为 O(N^3), 空间复杂度 O(N), 显然,
+// is_palindrome 这一步仍然有重复计算
+//
+// is_palindrome(s[i..n]) = s[i] == s[n] && is_palindrome(s[i+1..n-1])
+//
+// 存储所有 i, n 的 is_palindrome 结果, 则可以优化 is_palindrome 的时间到 O(1)
+//
+// 最后的复杂度: 时间 O(N^2), 空间 O(N^2)
 impl Solution {
     pub fn partition(s: String) -> Vec<Vec<String>> {
         let s = s.chars().collect::<Vec<_>>();

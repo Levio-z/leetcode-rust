@@ -1,19 +1,20 @@
-/**
- * [31] Next Permutation
- *
- * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
- *
- * If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
- *
- * The replacement must be <a href="http://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a> and use only constant extra memory.
- *
- * Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
- *
- * 1,2,3 &rarr; 1,3,2<br />
- * 3,2,1 &rarr; 1,2,3<br />
- * 1,1,5 &rarr; 1,5,1
- *
- */
+/// [31] Next Permutation
+///
+/// Implement next permutation, which rearranges numbers into the
+/// lexicographically next greater permutation of numbers.
+///
+/// If such arrangement is not possible, it must rearrange it as the lowest
+/// possible order (ie, sorted in ascending order).
+///
+/// The replacement must be <a href="http://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a> and use only constant extra memory.
+///
+/// Here are some examples. Inputs are in the left-hand column and its
+/// corresponding outputs are in the right-hand column.
+///
+/// 1,2,3 &rarr; 1,3,2<br />
+/// 3,2,1 &rarr; 1,2,3<br />
+/// 1,1,5 &rarr; 1,5,1
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/next-permutation/
@@ -53,24 +54,22 @@ impl Solution {
 
 // submission codes end
 
-/*
 // a clean solution (from leetcode submissions)
-impl Solution {
-    pub fn next_permutation(a: &mut Vec<i32>) {
-        let n = a.len();
-
-        if let Some(i) = (1..n).rev().find(|&i| a[i - 1] < a[i]) {
-            let j = (i..n).rev().find(|&j| a[i - 1] < a[j])
-                .unwrap();
-
-            a.swap(i - 1, j);
-            a[i..].reverse();
-        } else {
-            a.reverse();
-        }
-    }
-}
- */
+// impl Solution {
+// pub fn next_permutation(a: &mut Vec<i32>) {
+// let n = a.len();
+//
+// if let Some(i) = (1..n).rev().find(|&i| a[i - 1] < a[i]) {
+// let j = (i..n).rev().find(|&j| a[i - 1] < a[j])
+// .unwrap();
+//
+// a.swap(i - 1, j);
+// a[i..].reverse();
+// } else {
+// a.reverse();
+// }
+// }
+// }
 
 #[cfg(test)]
 mod tests {

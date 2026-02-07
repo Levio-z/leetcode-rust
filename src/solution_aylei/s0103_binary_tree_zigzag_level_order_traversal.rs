@@ -1,41 +1,39 @@
-/**
- * [103] Binary Tree Zigzag Level Order Traversal
- *
- * Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
- *
- *
- * For example:<br />
- * Given binary tree [3,9,20,null,null,15,7],<br />
- *
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
- *
- *
- *
- * return its zigzag level order traversal as:<br />
- *
- * [
- *   [3],
- *   [20,9],
- *   [15,7]
- * ]
- *
- *
- */
+/// [103] Binary Tree Zigzag Level Order Traversal
+///
+/// Given a binary tree, return the zigzag level order traversal of its nodes'
+/// values. (ie, from left to right, then right to left for the next level and
+/// alternate between).
+///
+///
+/// For example:<br />
+/// Given binary tree [3,9,20,null,null,15,7],<br />
+///
+///     3
+///    / \
+///   9  20
+///     /  \
+///    15   7
+///
+///
+///
+/// return its zigzag level order traversal as:<br />
+///
+/// [
+///   [3],
+///   [20,9],
+///   [15,7]
+/// ]
+///
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 // discuss: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
-use std::collections::VecDeque;
-use std::rc::Rc;
+use std::{collections::VecDeque, rc::Rc};
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn zigzag_level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
         let mut res = Vec::new();

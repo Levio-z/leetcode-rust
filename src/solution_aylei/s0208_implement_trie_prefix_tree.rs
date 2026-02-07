@@ -1,29 +1,27 @@
-/**
- * [208] Implement Trie (Prefix Tree)
- *
- * Implement a trie with insert, search, and startsWith methods.
- *
- * Example:
- *
- *
- * Trie trie = new Trie();
- *
- * trie.insert("apple");
- * trie.search("apple");   // returns true
- * trie.search("app");     // returns false
- * trie.startsWith("app"); // returns true
- * trie.insert("app");
- * trie.search("app");     // returns true
- *
- *
- * Note:
- *
- *
- * 	You may assume that all inputs are consist of lowercase letters a-z.
- * 	All inputs are guaranteed to be non-empty strings.
- *
- *
- */
+/// [208] Implement Trie (Prefix Tree)
+///
+/// Implement a trie with insert, search, and startsWith methods.
+///
+/// Example:
+///
+///
+/// Trie trie = new Trie();
+///
+/// trie.insert("apple");
+/// trie.search("apple");   // returns true
+/// trie.search("app");     // returns false
+/// trie.startsWith("app"); // returns true
+/// trie.insert("app");
+/// trie.search("app");     // returns true
+///
+///
+/// Note:
+///
+///
+///     You may assume that all inputs are consist of lowercase letters a-z.
+///     All inputs are guaranteed to be non-empty strings.
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/implement-trie-prefix-tree/
@@ -37,17 +35,15 @@ struct Trie {
     nodes: [Option<Box<Trie>>; 26],
 }
 
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
+/// `&self` means the method takes an immutable reference.
+/// If you need a mutable reference, change it to `&mut self` instead.
 impl Trie {
-    /** Initialize your data structure here. */
+    /// Initialize your data structure here.
     fn new() -> Self {
         Default::default()
     }
 
-    /** insert a word into the trie. */
+    /// insert a word into the trie.
     fn insert(&mut self, word: String) {
         let mut curr = self;
 
@@ -57,12 +53,13 @@ impl Trie {
         curr.is_end = true;
     }
 
-    /** Returns if the word is in the trie. */
+    /// Returns if the word is in the trie.
     fn search(&self, word: String) -> bool {
         self.find(word).map_or(false, |t| t.is_end)
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    /// Returns if there is any word in the trie that starts with the given
+    /// prefix.
     fn starts_with(&self, prefix: String) -> bool {
         self.find(prefix).is_some()
     }

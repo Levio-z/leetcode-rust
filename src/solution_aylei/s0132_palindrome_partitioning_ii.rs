@@ -1,19 +1,19 @@
-/**
- * [132] Palindrome Partitioning II
- *
- * Given a string s, partition s such that every substring of the partition is a palindrome.
- *
- * Return the minimum cuts needed for a palindrome partitioning of s.
- *
- * Example:
- *
- *
- * Input: "aab"
- * Output: 1
- * Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
- *
- *
- */
+/// [132] Palindrome Partitioning II
+///
+/// Given a string s, partition s such that every substring of the partition is
+/// a palindrome.
+///
+/// Return the minimum cuts needed for a palindrome partitioning of s.
+///
+/// Example:
+///
+///
+/// Input: "aab"
+/// Output: 1
+/// Explanation: The palindrome partitioning ["aa","b"] could be produced using
+/// 1 cut.
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/palindrome-partitioning-ii/
@@ -21,19 +21,18 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-为了方便讨论, 我们记 n 个字符的最少回文分段是 f(n), 则切分次数为 f(n)-1, 接下来递推 f(n):
-
-f(n) = min(f(n-i) + 1) { i in [0..n] and s[i..n] is palindrome }
-
-显然, f(1) 为 1, f(0) 为 0
-
-判断 is_palindrome 也需要优化, 使用一个备忘录, 将判断回文的操作优化到 O(1):
-
-is_palindrome(s[i..n]) = s[i] == s[n] && is_palindrome(s[i+1..n-1])
-
-最后的复杂度: 时间 O(N^2), 空间 O(N^2)
-*/
+// 为了方便讨论, 我们记 n 个字符的最少回文分段是 f(n), 则切分次数为 f(n)-1,
+// 接下来递推 f(n):
+//
+// f(n) = min(f(n-i) + 1) { i in [0..n] and s[i..n] is palindrome }
+//
+// 显然, f(1) 为 1, f(0) 为 0
+//
+// 判断 is_palindrome 也需要优化, 使用一个备忘录, 将判断回文的操作优化到 O(1):
+//
+// is_palindrome(s[i..n]) = s[i] == s[n] && is_palindrome(s[i+1..n-1])
+//
+// 最后的复杂度: 时间 O(N^2), 空间 O(N^2)
 impl Solution {
     pub fn min_cut(s: String) -> i32 {
         let s = s.chars().collect::<Vec<_>>();

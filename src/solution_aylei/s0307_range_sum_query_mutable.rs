@@ -1,28 +1,28 @@
-/**
- * [307] Range Sum Query - Mutable
- *
- * Given an integer array nums, find the sum of the elements between indices i and j (i &le; j), inclusive.
- *
- * The update(i, val) function modifies nums by updating the element at index i to val.
- *
- * Example:
- *
- *
- * Given nums = [1, 3, 5]
- *
- * sumRange(0, 2) -> 9
- * update(1, 2)
- * sumRange(0, 2) -> 8
- *
- *
- * Note:
- *
- * <ol>
- * 	The array is only modifiable by the update function.
- * 	You may assume the number of calls to update and sumRange function is distributed evenly.
- * </ol>
- *
- */
+/// [307] Range Sum Query - Mutable
+///
+/// Given an integer array nums, find the sum of the elements between indices i
+/// and j (i &le; j), inclusive.
+///
+/// The update(i, val) function modifies nums by updating the element at index i
+/// to val.
+///
+/// Example:
+///
+///
+/// Given nums = [1, 3, 5]
+///
+/// sumRange(0, 2) -> 9
+/// update(1, 2)
+/// sumRange(0, 2) -> 8
+///
+///
+/// Note:
+///
+/// <ol>
+///     The array is only modifiable by the update function.
+///     You may assume the number of calls to update and sumRange function is
+/// distributed evenly. </ol>
+///
 pub struct Solution {}
 
 // Segement Tree
@@ -46,10 +46,8 @@ struct NumArray {
     n: usize,
 }
 
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
+/// `&self` means the method takes an immutable reference.
+/// If you need a mutable reference, change it to `&mut self` instead.
 impl NumArray {
     fn new(nums: Vec<i32>) -> Self {
         let n = nums.len();
@@ -57,7 +55,7 @@ impl NumArray {
         if n > 0 {
             NumArray::build(1, 0, n - 1, &mut tree, &nums);
         }
-        NumArray { tree: tree, n: n }
+        NumArray { tree, n }
     }
 
     fn update(&mut self, i: i32, val: i32) {
@@ -123,12 +121,10 @@ impl NumArray {
     }
 }
 
-/**
- * Your NumArray object will be instantiated and called as such:
- * let obj = NumArray::new(nums);
- * obj.update(i, val);
- * let ret_2: i32 = obj.sum_range(i, j);
- */
+/// Your NumArray object will be instantiated and called as such:
+/// let obj = NumArray::new(nums);
+/// obj.update(i, val);
+/// let ret_2: i32 = obj.sum_range(i, j);
 
 // submission codes end
 

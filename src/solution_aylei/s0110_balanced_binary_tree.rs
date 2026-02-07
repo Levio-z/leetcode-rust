@@ -1,54 +1,51 @@
-/**
- * [110] Balanced Binary Tree
- *
- * Given a binary tree, determine if it is height-balanced.
- *
- * For this problem, a height-balanced binary tree is defined as:
- *
- * <blockquote>
- * a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
- * </blockquote>
- *
- * Example 1:
- *
- * Given the following tree [3,9,20,null,null,15,7]:
- *
- *
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
- *
- * Return true.<br />
- * <br />
- * Example 2:
- *
- * Given the following tree [1,2,2,3,3,null,null,4,4]:
- *
- *
- *        1
- *       / \
- *      2   2
- *     / \
- *    3   3
- *   / \
- *  4   4
- *
- *
- * Return false.
- *
- */
+/// [110] Balanced Binary Tree
+///
+/// Given a binary tree, determine if it is height-balanced.
+///
+/// For this problem, a height-balanced binary tree is defined as:
+///
+/// <blockquote>
+/// a binary tree in which the depth of the two subtrees of every node never
+/// differ by more than 1. </blockquote>
+///
+/// Example 1:
+///
+/// Given the following tree [3,9,20,null,null,15,7]:
+///
+///
+///     3
+///    / \
+///   9  20
+///     /  \
+///    15   7
+///
+/// Return true.<br />
+/// <br />
+/// Example 2:
+///
+/// Given the following tree [1,2,2,3,3,null,null,4,4]:
+///
+///
+///        1
+///       / \
+///      2   2
+///     / \
+///    3   3
+///   / \
+///  4   4
+///
+///
+/// Return false.
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/balanced-binary-tree/
 // discuss: https://leetcode.com/problems/balanced-binary-tree/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
         Solution::balanced_helper(root.as_ref()).is_some()

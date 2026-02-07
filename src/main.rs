@@ -3,11 +3,11 @@ extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 
-mod fetcher;
 mod cli;
+mod fetcher;
 
 use clap::Parser;
-use cli::{execute_command, get_initialized_problem_ids, Command};
+use cli::{Command, execute_command, get_initialized_problem_ids};
 
 /// LeetCode Rust CLI - Generate and manage LeetCode problem templates
 #[derive(Parser)]
@@ -61,7 +61,7 @@ fn main() {
     };
 
     match execute_command(command, &initialized_ids) {
-        Ok(_) => {},
+        Ok(_) => {}
         Err(e) => {
             eprintln!("Error: {}", e);
             std::process::exit(1);

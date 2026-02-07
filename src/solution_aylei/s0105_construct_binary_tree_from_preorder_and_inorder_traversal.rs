@@ -1,37 +1,34 @@
-/**
- * [105] Construct Binary Tree from Preorder and Inorder Traversal
- *
- * Given preorder and inorder traversal of a tree, construct the binary tree.
- *
- * Note:<br />
- * You may assume that duplicates do not exist in the tree.
- *
- * For example, given
- *
- *
- * preorder = [3,9,20,15,7]
- * inorder = [9,3,15,20,7]
- *
- * Return the following binary tree:
- *
- *
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
- *
- */
+/// [105] Construct Binary Tree from Preorder and Inorder Traversal
+///
+/// Given preorder and inorder traversal of a tree, construct the binary tree.
+///
+/// Note:<br />
+/// You may assume that duplicates do not exist in the tree.
+///
+/// For example, given
+///
+///
+/// preorder = [3,9,20,15,7]
+/// inorder = [9,3,15,20,7]
+///
+/// Return the following binary tree:
+///
+///
+///     3
+///    / \
+///   9  20
+///     /  \
+///    15   7
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 // discuss: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn build_tree(preorder: Vec<i32>, inorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
         Solution::build_tree_helper(&preorder[..], &inorder[..])

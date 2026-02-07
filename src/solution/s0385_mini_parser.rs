@@ -25,10 +25,10 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= s.length <= 5 * 10^4
-/// 	s consists of digits, square brackets "[]", negative sign '-', and commas
-/// ','. 	s is the serialization of valid NestedInteger.
-/// 	All the values in the input are in the range [-10^6, 10^6].
+///     1 <= s.length <= 5 * 10^4
+///     s consists of digits, square brackets "[]", negative sign '-', and commas
+/// ','.     s is the serialization of valid NestedInteger.
+///     All the values in the input are in the range [-10^6, 10^6].
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/mini-parser/

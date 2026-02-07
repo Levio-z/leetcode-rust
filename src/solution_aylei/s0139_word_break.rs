@@ -1,52 +1,52 @@
-/**
- * [139] Word Break
- *
- * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
- *
- * Note:
- *
- *
- * 	The same word in the dictionary may be reused multiple times in the segmentation.
- * 	You may assume the dictionary does not contain duplicate words.
- *
- *
- * Example 1:
- *
- *
- * Input: s = "leetcode", wordDict = ["leet", "code"]
- * Output: true
- * Explanation: Return true because "leetcode" can be segmented as "leet code".
- *
- *
- * Example 2:
- *
- *
- * Input: s = "applepenapple", wordDict = ["apple", "pen"]
- * Output: true
- * Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
- *              Note that you are allowed to reuse a dictionary word.
- *
- *
- * Example 3:
- *
- *
- * Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
- * Output: false
- *
- *
- */
+/// [139] Word Break
+///
+/// Given a non-empty string s and a dictionary wordDict containing a list of
+/// non-empty words, determine if s can be segmented into a space-separated
+/// sequence of one or more dictionary words.
+///
+/// Note:
+///
+///
+///     The same word in the dictionary may be reused multiple times in the
+/// segmentation.     You may assume the dictionary does not contain duplicate
+/// words.
+///
+///
+/// Example 1:
+///
+///
+/// Input: s = "leetcode", wordDict = ["leet", "code"]
+/// Output: true
+/// Explanation: Return true because "leetcode" can be segmented as "leet code".
+///
+///
+/// Example 2:
+///
+///
+/// Input: s = "applepenapple", wordDict = ["apple", "pen"]
+/// Output: true
+/// Explanation: Return true because "applepenapple" can be segmented as "apple
+/// pen apple".              Note that you are allowed to reuse a dictionary
+/// word.
+///
+///
+/// Example 3:
+///
+///
+/// Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+/// Output: false
+///
+///
 pub struct Solution {}
 
-/*
-记 f[n] 表示从 0 开始长度为 n 的 substring 是否可以被组成，那么：
-
-f[n] = f[k] && (s[k..n] in dict)
-f[0] = true
-
-DP 向上递推即可
-
-BFS 也是可以的
-*/
+// 记 f[n] 表示从 0 开始长度为 n 的 substring 是否可以被组成，那么：
+//
+// f[n] = f[k] && (s[k..n] in dict)
+// f[0] = true
+//
+// DP 向上递推即可
+//
+// BFS 也是可以的
 
 // problem: https://leetcode.com/problems/word-break/
 // discuss: https://leetcode.com/problems/word-break/discuss/?currentPage=1&orderBy=most_votes&query=

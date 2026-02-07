@@ -1,5 +1,6 @@
-use regex::Regex;
 use std::collections::HashMap;
+
+use regex::Regex;
 
 use crate::fetcher::Problem;
 
@@ -37,9 +38,15 @@ pub fn insert_default_return(return_type: &str, code: &str) -> String {
     let re = Regex::new(r"\{[ \n]+}").unwrap();
 
     let return_map: HashMap<&str, &str> = [
-        ("ListNode", "{\n        Some(Box::new(ListNode::new(0)))\n    }"),
+        (
+            "ListNode",
+            "{\n        Some(Box::new(ListNode::new(0)))\n    }",
+        ),
         ("ListNode[]", "{\n        vec![]\n    }"),
-        ("TreeNode", "{\n        Some(Rc::new(RefCell::new(TreeNode::new(0))))\n    }"),
+        (
+            "TreeNode",
+            "{\n        Some(Rc::new(RefCell::new(TreeNode::new(0))))\n    }",
+        ),
         ("boolean", "{\n        false\n    }"),
         ("character", "{\n        '0'\n    }"),
         ("character[][]", "{\n        vec![]\n    }"),

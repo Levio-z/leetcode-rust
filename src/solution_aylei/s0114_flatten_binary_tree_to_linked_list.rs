@@ -1,45 +1,42 @@
-/**
- * [114] Flatten Binary Tree to Linked List
- *
- * Given a binary tree, flatten it to a linked list in-place.
- *
- * For example, given the following tree:
- *
- *
- *     1
- *    / \
- *   2   5
- *  / \   \
- * 3   4   6
- *
- *
- * The flattened tree should look like:
- *
- *
- * 1
- *  \
- *   2
- *    \
- *     3
- *      \
- *       4
- *        \
- *         5
- *          \
- *           6
- *
- *
- */
+/// [114] Flatten Binary Tree to Linked List
+///
+/// Given a binary tree, flatten it to a linked list in-place.
+///
+/// For example, given the following tree:
+///
+///
+///     1
+///    / \
+///   2   5
+///  / \   \
+/// 3   4   6
+///
+///
+/// The flattened tree should look like:
+///
+///
+/// 1
+///  \
+///   2
+///    \
+///     3
+///      \
+///       4
+///        \
+///         5
+///          \
+///           6
+///
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
 // discuss: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
         Solution::flatten_helper(root.clone());

@@ -1,25 +1,24 @@
-/**
- * [83] Remove Duplicates from Sorted List
- *
- * Given a sorted linked list, delete all duplicates such that each element appear only once.
- *
- * Example 1:
- *
- *
- * Input: 1->1->2
- * Output: 1->2
- *
- *
- * Example 2:
- *
- *
- * Input: 1->1->2->3->3
- * Output: 1->2->3
- *
- *
- */
+/// [83] Remove Duplicates from Sorted List
+///
+/// Given a sorted linked list, delete all duplicates such that each element
+/// appear only once.
+///
+/// Example 1:
+///
+///
+/// Input: 1->1->2
+/// Output: 1->2
+///
+///
+/// Example 2:
+///
+///
+/// Input: 1->1->2->3->3
+/// Output: 1->2->3
+///
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
+use crate::util::linked_list::{ListNode, to_list};
 
 // problem: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 // discuss: https://leetcode.com/problems/remove-duplicates-from-sorted-list/discuss/?currentPage=1&orderBy=most_votes&query=

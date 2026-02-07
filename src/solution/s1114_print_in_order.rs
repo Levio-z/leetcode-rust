@@ -34,7 +34,7 @@
 ///  
 /// Constraints:
 ///
-/// 	nums is a permutation of [1, 2, 3].
+///     nums is a permutation of [1, 2, 3].
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/print-in-order/

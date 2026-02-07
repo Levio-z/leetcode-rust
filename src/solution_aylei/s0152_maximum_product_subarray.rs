@@ -1,24 +1,23 @@
-/**
- * [152] Maximum Product Subarray
- *
- * Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
- *
- * Example 1:
- *
- *
- * Input: [2,3,-2,4]
- * Output: 6
- * Explanation: [2,3] has the largest product 6.
- *
- *
- * Example 2:
- *
- *
- * Input: [-2,0,-1]
- * Output: 0
- * Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
- *
- */
+/// [152] Maximum Product Subarray
+///
+/// Given an integer array nums, find the contiguous subarray within an array
+/// (containing at least one number) which has the largest product.
+///
+/// Example 1:
+///
+///
+/// Input: [2,3,-2,4]
+/// Output: 6
+/// Explanation: [2,3] has the largest product 6.
+///
+///
+/// Example 2:
+///
+///
+/// Input: [-2,0,-1]
+/// Output: 0
+/// Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/maximum-product-subarray/
@@ -26,19 +25,18 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-f[i], g[i] means the max positive value and max negative value for the sub-seq end with index i
-
-then we have:
-
-f[i], g[i] = if nums[i] == 0 {
-   0, 0
-} else if nums[i] > 0 {
-       f[i-1] * nums[i], g[i-1] * nums[i]
-} else if nums[i] < 0 {
-       g[i-1] * nums[i], f[i-1] * nums[i]
-}
-*/
+// f[i], g[i] means the max positive value and max negative value for the
+// sub-seq end with index i
+//
+// then we have:
+//
+// f[i], g[i] = if nums[i] == 0 {
+// 0, 0
+// } else if nums[i] > 0 {
+// f[i-1] * nums[i], g[i-1] * nums[i]
+// } else if nums[i] < 0 {
+// g[i-1] * nums[i], f[i-1] * nums[i]
+// }
 
 impl Solution {
     pub fn max_product(nums: Vec<i32>) -> i32 {

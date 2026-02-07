@@ -1,25 +1,24 @@
-/**
- * [303] Range Sum Query - Immutable
- *
- * Given an integer array nums, find the sum of the elements between indices i and j (i &le; j), inclusive.
- *
- * Example:<br>
- *
- * Given nums = [-2, 0, 3, -5, 2, -1]
- *
- * sumRange(0, 2) -> 1
- * sumRange(2, 5) -> -1
- * sumRange(0, 5) -> -3
- *
- *
- *
- * Note:<br>
- * <ol>
- * You may assume that the array does not change.
- * There are many calls to sumRange function.
- * </ol>
- *
- */
+/// [303] Range Sum Query - Immutable
+///
+/// Given an integer array nums, find the sum of the elements between indices i
+/// and j (i &le; j), inclusive.
+///
+/// Example:<br>
+///
+/// Given nums = [-2, 0, 3, -5, 2, -1]
+///
+/// sumRange(0, 2) -> 1
+/// sumRange(2, 5) -> -1
+/// sumRange(0, 5) -> -3
+///
+///
+///
+/// Note:<br>
+/// <ol>
+/// You may assume that the array does not change.
+/// There are many calls to sumRange function.
+/// </ol>
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/range-sum-query-immutable/
@@ -31,10 +30,8 @@ struct NumArray {
     nums: Vec<i32>,
 }
 
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
+/// `&self` means the method takes an immutable reference.
+/// If you need a mutable reference, change it to `&mut self` instead.
 impl NumArray {
     fn new(nums: Vec<i32>) -> Self {
         let mut res = 0;
@@ -52,11 +49,9 @@ impl NumArray {
     }
 }
 
-/**
- * Your NumArray object will be instantiated and called as such:
- * let obj = NumArray::new(nums);
- * let ret_1: i32 = obj.sum_range(i, j);
- */
+/// Your NumArray object will be instantiated and called as such:
+/// let obj = NumArray::new(nums);
+/// let ret_1: i32 = obj.sum_range(i, j);
 
 // submission codes end
 

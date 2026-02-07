@@ -17,8 +17,8 @@
 ///
 /// The same instance of FooBar will be passed to two different threads:
 ///
-/// 	thread A will call foo(), while
-/// 	thread B will call bar().
+///     thread A will call foo(), while
+///     thread B will call bar().
 ///
 /// Modify the given program to output "foobar" n times.
 ///  
@@ -38,7 +38,7 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= n <= 1000
+///     1 <= n <= 1000
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/print-foobar-alternately/

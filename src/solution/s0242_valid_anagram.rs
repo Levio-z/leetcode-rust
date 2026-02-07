@@ -15,8 +15,8 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= s.length, t.length <= 5 * 10^4
-/// 	s and t consist of lowercase English letters.
+///     1 <= s.length, t.length <= 5 * 10^4
+///     s and t consist of lowercase English letters.
 ///
 ///  
 /// Follow up: What if the inputs contain Unicode characters? How would you

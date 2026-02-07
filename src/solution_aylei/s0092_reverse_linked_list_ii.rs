@@ -1,20 +1,18 @@
-/**
- * [92] Reverse Linked List II
- *
- * Reverse a linked list from position m to n. Do it in one-pass.
- *
- * Note: 1 &le; m &le; n &le; length of list.
- *
- * Example:
- *
- *
- * Input: 1->2->3->4->5->NULL, m = 2, n = 4
- * Output: 1->4->3->2->5->NULL
- *
- *
- */
+/// [92] Reverse Linked List II
+///
+/// Reverse a linked list from position m to n. Do it in one-pass.
+///
+/// Note: 1 &le; m &le; n &le; length of list.
+///
+/// Example:
+///
+///
+/// Input: 1->2->3->4->5->NULL, m = 2, n = 4
+/// Output: 1->4->3->2->5->NULL
+///
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
+use crate::util::linked_list::{ListNode, to_list};
 
 // problem: https://leetcode.com/problems/reverse-linked-list-ii/
 // discuss: https://leetcode.com/problems/reverse-linked-list-ii/discuss/?currentPage=1&orderBy=most_votes&query=

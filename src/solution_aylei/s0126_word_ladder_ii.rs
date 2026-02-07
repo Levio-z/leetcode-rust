@@ -1,55 +1,56 @@
-/**
- * [126] Word Ladder II
- *
- * Given two words (beginWord and endWord), and a dictionary's word list, find all shortest transformation sequence(s) from beginWord to endWord, such that:
- *
- * <ol>
- * 	Only one letter can be changed at a time
- * 	Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
- * </ol>
- *
- * Note:
- *
- *
- * 	Return an empty list if there is no such transformation sequence.
- * 	All words have the same length.
- * 	All words contain only lowercase alphabetic characters.
- * 	You may assume no duplicates in the word list.
- * 	You may assume beginWord and endWord are non-empty and are not the same.
- *
- *
- * Example 1:
- *
- *
- * Input:
- * beginWord = "hit",
- * endWord = "cog",
- * wordList = ["hot","dot","dog","lot","log","cog"]
- *
- * Output:
- * [
- *   ["hit","hot","dot","dog","cog"],
- *   ["hit","hot","lot","log","cog"]
- * ]
- *
- *
- * Example 2:
- *
- *
- * Input:
- * beginWord = "hit"
- * endWord = "cog"
- * wordList = ["hot","dot","dog","lot","log"]
- *
- * Output: []
- *
- * Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
- *
- *
- *
- *
- *
- */
+/// [126] Word Ladder II
+///
+/// Given two words (beginWord and endWord), and a dictionary's word list, find
+/// all shortest transformation sequence(s) from beginWord to endWord, such
+/// that:
+///
+/// <ol>
+///     Only one letter can be changed at a time
+///     Each transformed word must exist in the word list. Note that beginWord is
+/// not a transformed word. </ol>
+///
+/// Note:
+///
+///
+///     Return an empty list if there is no such transformation sequence.
+///     All words have the same length.
+///     All words contain only lowercase alphabetic characters.
+///     You may assume no duplicates in the word list.
+///     You may assume beginWord and endWord are non-empty and are not the same.
+///
+///
+/// Example 1:
+///
+///
+/// Input:
+/// beginWord = "hit",
+/// endWord = "cog",
+/// wordList = ["hot","dot","dog","lot","log","cog"]
+///
+/// Output:
+/// [
+///   ["hit","hot","dot","dog","cog"],
+///   ["hit","hot","lot","log","cog"]
+/// ]
+///
+///
+/// Example 2:
+///
+///
+/// Input:
+/// beginWord = "hit"
+/// endWord = "cog"
+/// wordList = ["hot","dot","dog","lot","log"]
+///
+/// Output: []
+///
+/// Explanation: The endWord "cog" is not in wordList, therefore no possible
+/// transformation.
+///
+///
+///
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/word-ladder-ii/
@@ -57,18 +58,18 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-假如 A 经过一个字符的变换能得到 B, 则认为 A 与 B 之间有通路, 转化为一个 BFS 找无权图最短路径的问题
+// 假如 A 经过一个字符的变换能得到 B, 则认为 A 与 B 之间有通路, 转化为一个 BFS
+// 找无权图最短路径的问题
+//
+// 实现时, 可以先把图构造出来, 复杂度 O(L*N^2) (L 是字符串长度),
+// 也可以每次都回到数组里去找连通点, 时间复杂度不变
+//
+// 由于要记录所有的路径, 因此我们需要把每个点的可能前置节点都记录下来,
+// 最后用一个 DFS 或 BFS 找出所有路径
+//
+// 暂时想不到更好的办法
 
-实现时, 可以先把图构造出来, 复杂度 O(L*N^2) (L 是字符串长度), 也可以每次都回到数组里去找连通点, 时间复杂度不变
-
-由于要记录所有的路径, 因此我们需要把每个点的可能前置节点都记录下来, 最后用一个 DFS 或 BFS 找出所有路径
-
-暂时想不到更好的办法
-*/
-
-use std::collections::HashSet;
-use std::collections::VecDeque;
+use std::collections::{HashSet, VecDeque};
 impl Solution {
     pub fn find_ladders(
         begin_word: String,
@@ -84,7 +85,8 @@ impl Solution {
         let target = target.unwrap();
         let mut deq = VecDeque::new();
         deq.push_back(target);
-        // paths record the distance & previous index, we use 'len' to represent empty prev
+        // paths record the distance & previous index, we use 'len' to represent empty
+        // prev
         let mut paths: Vec<(i32, Vec<usize>)> = vec![(i32::max_value(), vec![]); len];
         paths[target].0 = 0;
         let mut find_shortest = false;

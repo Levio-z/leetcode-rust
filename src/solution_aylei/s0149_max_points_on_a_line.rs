@@ -1,40 +1,39 @@
-/**
- * [149] Max Points on a Line
- *
- * Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
- *
- * Example 1:
- *
- *
- * Input: [[1,1],[2,2],[3,3]]
- * Output: 3
- * Explanation:
- * ^
- * |
- * |        o
- * |     o
- * |  o
- * +------------->
- * 0  1  2  3  4
- *
- *
- * Example 2:
- *
- *
- * Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
- * Output: 4
- * Explanation:
- * ^
- * |
- * |  o
- * |     o        o
- * |        o
- * |  o        o
- * +------------------->
- * 0  1  2  3  4  5  6
- *
- *
- */
+/// [149] Max Points on a Line
+///
+/// Given n points on a 2D plane, find the maximum number of points that lie on
+/// the same straight line.
+///
+/// Example 1:
+///
+///
+/// Input: [[1,1],[2,2],[3,3]]
+/// Output: 3
+/// Explanation:
+/// ^
+/// |
+/// |        o
+/// |     o
+/// |  o
+/// +------------->
+/// 0  1  2  3  4
+///
+///
+/// Example 2:
+///
+///
+/// Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+/// Output: 4
+/// Explanation:
+/// ^
+/// |
+/// |  o
+/// |     o        o
+/// |        o
+/// |  o        o
+/// +------------------->
+/// 0  1  2  3  4  5  6
+///
+///
 pub struct Solution {}
 use crate::util::point::Point;
 
@@ -43,21 +42,21 @@ use crate::util::point::Point;
 
 // submission codes start here
 
-/*
-要回顾下高中数学：已知两点, 求解一般式:
-
-  * Ax + By + C = 0
-  * A = y2 - y1, B = x1 - x2, C = x2y1 - x1y2
-
-有这个知识之后，化为一般式，做三层遍历就行，再加上一个 HashSet，避免对同一直线上点的重复计算，时间复杂度可以是 O(N^2)
-
-有两个坑要注意避免：
-
-  * 给的 case 会导致 i32 溢出，这里直接用了 i64 表示
-  * 给的 case 里有相同的点，直接处理相同点的话会导致最坏情况复杂度到 O(N^3)，因此要先做一次转化，归并相同的点
-
-用 Rust 实现有另一点注意的，给的 Point 没有实现 Hash Trait，要自己转化一下
-*/
+// 要回顾下高中数学：已知两点, 求解一般式:
+//
+// Ax + By + C = 0
+// A = y2 - y1, B = x1 - x2, C = x2y1 - x1y2
+//
+// 有这个知识之后，化为一般式，做三层遍历就行，再加上一个
+// HashSet，避免对同一直线上点的重复计算，时间复杂度可以是 O(N^2)
+//
+// 有两个坑要注意避免：
+//
+// 给的 case 会导致 i32 溢出，这里直接用了 i64 表示
+// 给的 case 里有相同的点，直接处理相同点的话会导致最坏情况复杂度到
+// O(N^3)，因此要先做一次转化，归并相同的点
+//
+// 用 Rust 实现有另一点注意的，给的 Point 没有实现 Hash Trait，要自己转化一下
 // straight-line expression: Ax + By + C = 0
 // A = y2 - y1, B = x1 - x2, C = x2y1 - x1y2
 #[derive(PartialEq, Hash, Eq, Debug)]
@@ -77,8 +76,7 @@ impl Line {
     }
 }
 
-use std::collections::HashMap;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 impl Solution {
     pub fn max_points(points: Vec<Point>) -> i32 {
         // fold same point, record the point count

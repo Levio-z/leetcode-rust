@@ -136,13 +136,13 @@ fn execute_all_command(initialized_ids: &[u32]) -> Result<(), String> {
     let pool = futures::executor::ThreadPool::new()
         .map_err(|e| format!("Failed to create thread pool: {}", e))?;
 
-    let problems_future = pool.spawn_with_handle(async {
-        fetcher::get_problems()
-    }).map_err(|e| format!("Failed to spawn task: {}", e))?;
+    let problems_future = pool
+        .spawn_with_handle(async { fetcher::get_problems() })
+        .map_err(|e| format!("Failed to spawn task: {}", e))?;
 
-    let concurrency_future = pool.spawn_with_handle(async {
-        fetcher::get_concurrency()
-    }).map_err(|e| format!("Failed to spawn task: {}", e))?;
+    let concurrency_future = pool
+        .spawn_with_handle(async { fetcher::get_concurrency() })
+        .map_err(|e| format!("Failed to spawn task: {}", e))?;
 
     let (problems, concurrency_problems) = block_on(async {
         let p = problems_future.await;
@@ -151,10 +151,12 @@ fn execute_all_command(initialized_ids: &[u32]) -> Result<(), String> {
     });
 
     let problems = problems.ok_or("Failed to fetch algorithm problems")?;
-    let concurrency_problems = concurrency_problems.ok_or("Failed to fetch concurrency problems")?;
+    let concurrency_problems =
+        concurrency_problems.ok_or("Failed to fetch concurrency problems")?;
 
     // Collect all problems to process
-    let all_problems: Vec<_> = problems.stat_status_pairs
+    let all_problems: Vec<_> = problems
+        .stat_status_pairs
         .into_iter()
         .chain(concurrency_problems.stat_status_pairs.into_iter())
         .filter(|p| !initialized_ids.contains(&p.stat.frontend_question_id))
@@ -176,7 +178,10 @@ fn execute_all_command(initialized_ids: &[u32]) -> Result<(), String> {
     let batches: Vec<_> = all_problems.chunks(BATCH_SIZE).collect();
     let num_batches = batches.len();
 
-    println!("Initializing problems in {} batches (batch size: {})...", num_batches, BATCH_SIZE);
+    println!(
+        "Initializing problems in {} batches (batch size: {})...",
+        num_batches, BATCH_SIZE
+    );
 
     for (batch_idx, batch) in batches.into_iter().enumerate() {
         println!("Processing batch {}/{}...", batch_idx + 1, num_batches);
@@ -193,7 +198,9 @@ fn execute_all_command(initialized_ids: &[u32]) -> Result<(), String> {
                     let problem = fetcher::get_problem_async(problem_stat).await;
 
                     if let Some(problem) = problem {
-                        if let Some(code) = problem.code_definition.iter().find(|&d| d.value == "rust") {
+                        if let Some(code) =
+                            problem.code_definition.iter().find(|&d| d.value == "rust")
+                        {
                             mod_file_addon.lock().unwrap().push(format!(
                                 "mod p{:04}_{};",
                                 problem.question_id,
@@ -227,6 +234,9 @@ fn execute_all_command(initialized_ids: &[u32]) -> Result<(), String> {
     writeln!(lib_file, "{}", mod_file_addon.lock().unwrap().join("\n"))
         .map_err(|e| format!("Failed to write to mod.rs: {}", e))?;
 
-    println!("Successfully initialized {} problems!", completed.lock().unwrap());
+    println!(
+        "Successfully initialized {} problems!",
+        completed.lock().unwrap()
+    );
     Ok(())
 }

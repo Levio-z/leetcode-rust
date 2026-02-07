@@ -1,49 +1,48 @@
-/**
- * [146] LRU Cache
- *
- *
- * Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank">Least Recently Used (LRU) cache</a>. It should support the following operations: get and put.
- *
- *
- *
- * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br>
- * put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
- *
- *
- * Follow up:<br />
- * Could you do both operations in O(1) time complexity?
- *
- * Example:
- *
- * LRUCache cache = new LRUCache( 2 /* capacity */ );
- *
- * cache.put(1, 1);
- * cache.put(2, 2);
- * cache.get(1);       // returns 1
- * cache.put(3, 3);    // evicts key 2
- * cache.get(2);       // returns -1 (not found)
- * cache.put(4, 4);    // evicts key 1
- * cache.get(1);       // returns -1 (not found)
- * cache.get(3);       // returns 3
- * cache.get(4);       // returns 4
- *
- *
- */
+/// [146] LRU Cache
+///
+///
+/// Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank">Least Recently Used (LRU) cache</a>. It should support the following operations: get and put.
+///
+///
+///
+/// get(key) - Get the value (will always be positive) of the key if the key
+/// exists in the cache, otherwise return -1.<br> put(key, value) - Set or
+/// insert the value if the key is not already present. When the cache reached
+/// its capacity, it should invalidate the least recently used item before
+/// inserting a new item.
+///
+///
+/// Follow up:<br />
+/// Could you do both operations in O(1) time complexity?
+///
+/// Example:
+///
+/// LRUCache cache = new LRUCache( 2 /* capacity */ );
+///
+/// cache.put(1, 1);
+/// cache.put(2, 2);
+/// cache.get(1);       // returns 1
+/// cache.put(3, 3);    // evicts key 2
+/// cache.get(2);       // returns -1 (not found)
+/// cache.put(4, 4);    // evicts key 1
+/// cache.get(1);       // returns -1 (not found)
+/// cache.get(3);       // returns 3
+/// cache.get(4);       // returns 4
+///
+///
 // problem: https://leetcode.com/problems/lru-cache/
 // discuss: https://leetcode.com/problems/lru-cache/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
 
-/*
-Least Recently Used, 最近最少使用, 关键在于追踪每一个 entry 的 age, 每次淘汰最小的那一个 key
-
-假如淘汰逻辑要做到 O(1) 复杂度, 我们可以引入一个链表, 每次 touch 一个值时, 就删掉它重新 push_back, 而当达到容量要驱逐时, 则 pop_front
-
-Rust 的链表不支持根据引用删除任意元素，也没有 LinkedHashMap，需要自己实现一个
-*/
+// Least Recently Used, 最近最少使用, 关键在于追踪每一个 entry 的 age, 每次淘汰最小的那一个 key
+//
+// 假如淘汰逻辑要做到 O(1) 复杂度, 我们可以引入一个链表, 每次 touch 一个值时, 就删掉它重新
+// push_back, 而当达到容量要驱逐时, 则 pop_front
+//
+// Rust 的链表不支持根据引用删除任意元素，也没有 LinkedHashMap，需要自己实现一个
 use std::collections::HashMap;
-use std::mem;
-use std::ptr;
+use std::{mem, ptr};
 
 // Entry is either a map entry and a link-list node
 pub struct LRUEntry {
@@ -56,8 +55,8 @@ pub struct LRUEntry {
 impl LRUEntry {
     pub fn new(key: i32, val: i32) -> Self {
         LRUEntry {
-            key: key,
-            val: val,
+            key,
+            val,
             prev: ptr::null_mut(),
             next: ptr::null_mut(),
         }
@@ -78,7 +77,7 @@ impl LRUCache {
         let capacity = capacity as usize;
         let map = HashMap::with_capacity(capacity);
         let cache = LRUCache {
-            map: map,
+            map,
             cap: capacity,
             head: unsafe { Box::into_raw(Box::new(LRUEntry::new(0, 0))) },
             tail: unsafe { Box::into_raw(Box::new(LRUEntry::new(0, 0))) },
@@ -137,7 +136,8 @@ impl LRUCache {
         }
     }
 
-    // pop() remove the entry from map, detach the entry from head of linked-list, and return it
+    // pop() remove the entry from map, detach the entry from head of linked-list,
+    // and return it
     fn pop(&mut self) -> Option<Box<LRUEntry>> {
         let next;
         unsafe { next = (*self.head).next }

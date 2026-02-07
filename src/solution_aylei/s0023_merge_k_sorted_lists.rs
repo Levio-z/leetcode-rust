@@ -1,30 +1,29 @@
-/**
- * [23] Merge k Sorted Lists
- *
- * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
- *
- * Example:
- *
- *
- * Input:
- * [
- *   1->4->5,
- *   1->3->4,
- *   2->6
- * ]
- * Output: 1->1->2->3->4->4->5->6
- *
- *
- */
+/// [23] Merge k Sorted Lists
+///
+/// Merge k sorted linked lists and return it as one sorted list. Analyze and
+/// describe its complexity.
+///
+/// Example:
+///
+///
+/// Input:
+/// [
+///   1->4->5,
+///   1->3->4,
+///   2->6
+/// ]
+/// Output: 1->1->2->3->4->4->5->6
+///
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
-
 // problem: https://leetcode.com/problems/merge-k-sorted-lists/
 // discuss: https://leetcode.com/problems/merge-k-sorted-lists/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
+
+use crate::util::linked_list::{ListNode, to_list};
 
 // head value and the index
 struct Node(i32, usize);

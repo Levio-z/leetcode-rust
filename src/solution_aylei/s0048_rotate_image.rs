@@ -1,53 +1,51 @@
-/**
- * [48] Rotate Image
- *
- * You are given an n x n 2D matrix representing an image.
- *
- * Rotate the image by 90 degrees (clockwise).
- *
- * Note:
- *
- * You have to rotate the image <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a>, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
- *
- * Example 1:
- *
- *
- * Given input matrix =
- * [
- *   [1,2,3],
- *   [4,5,6],
- *   [7,8,9]
- * ],
- *
- * rotate the input matrix in-place such that it becomes:
- * [
- *   [7,4,1],
- *   [8,5,2],
- *   [9,6,3]
- * ]
- *
- *
- * Example 2:
- *
- *
- * Given input matrix =
- * [
- *   [ 5, 1, 9,11],
- *   [ 2, 4, 8,10],
- *   [13, 3, 6, 7],
- *   [15,14,12,16]
- * ],
- *
- * rotate the input matrix in-place such that it becomes:
- * [
- *   [15,13, 2, 5],
- *   [14, 3, 4, 1],
- *   [12, 6, 8, 9],
- *   [16, 7,10,11]
- * ]
- *
- *
- */
+/// [48] Rotate Image
+///
+/// You are given an n x n 2D matrix representing an image.
+///
+/// Rotate the image by 90 degrees (clockwise).
+///
+/// Note:
+///
+/// You have to rotate the image <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a>, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+///
+/// Example 1:
+///
+///
+/// Given input matrix =
+/// [
+///   [1,2,3],
+///   [4,5,6],
+///   [7,8,9]
+/// ],
+///
+/// rotate the input matrix in-place such that it becomes:
+/// [
+///   [7,4,1],
+///   [8,5,2],
+///   [9,6,3]
+/// ]
+///
+///
+/// Example 2:
+///
+///
+/// Given input matrix =
+/// [
+///   [ 5, 1, 9,11],
+///   [ 2, 4, 8,10],
+///   [13, 3, 6, 7],
+///   [15,14,12,16]
+/// ],
+///
+/// rotate the input matrix in-place such that it becomes:
+/// [
+///   [15,13, 2, 5],
+///   [14, 3, 4, 1],
+///   [12, 6, 8, 9],
+///   [16, 7,10,11]
+/// ]
+///
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/rotate-image/
@@ -59,9 +57,11 @@ pub struct Solution {}
 //   ^                  x     0   1      y
 //   |      |              *         =
 //          v           y     -1  0      -x
-// n-y,x <- n-x,n-y  if we consider axis transform, then: rotate(x, y) = (y, -x + n)
+// n-y,x <- n-x,n-y  if we consider axis transform, then: rotate(x, y) = (y, -x
+// + n)
 
-//  we only need to iterate a 1/4 corner matrix, for odd matrix, we take an extra part in x direction
+//  we only need to iterate a 1/4 corner matrix, for odd matrix, we take an
+// extra part in x direction
 //
 //  even:
 //

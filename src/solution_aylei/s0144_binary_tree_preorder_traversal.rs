@@ -1,34 +1,31 @@
-/**
- * [144] Binary Tree Preorder Traversal
- *
- * Given a binary tree, return the preorder traversal of its nodes' values.
- *
- * Example:
- *
- *
- * Input: [1,null,2,3]
- *    1
- *     \
- *      2
- *     /
- *    3
- *
- * Output: [1,2,3]
- *
- *
- * Follow up: Recursive solution is trivial, could you do it iteratively?
- *
- */
+/// [144] Binary Tree Preorder Traversal
+///
+/// Given a binary tree, return the preorder traversal of its nodes' values.
+///
+/// Example:
+///
+///
+/// Input: [1,null,2,3]
+///    1
+///     \
+///      2
+///     /
+///    3
+///
+/// Output: [1,2,3]
+///
+///
+/// Follow up: Recursive solution is trivial, could you do it iteratively?
+///
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/binary-tree-preorder-traversal/
 // discuss: https://leetcode.com/problems/binary-tree-preorder-traversal/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::tree::{TreeNode, to_tree};
 impl Solution {
     pub fn preorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
         let mut res = Vec::new();

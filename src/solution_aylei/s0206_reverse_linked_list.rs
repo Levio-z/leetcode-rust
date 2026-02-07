@@ -1,22 +1,21 @@
-/**
- * [206] Reverse Linked List
- *
- * Reverse a singly linked list.
- *
- * Example:
- *
- *
- * Input: 1->2->3->4->5->NULL
- * Output: 5->4->3->2->1->NULL
- *
- *
- * Follow up:
- *
- * A linked list can be reversed either iteratively or recursively. Could you implement both?
- *
- */
+/// [206] Reverse Linked List
+///
+/// Reverse a singly linked list.
+///
+/// Example:
+///
+///
+/// Input: 1->2->3->4->5->NULL
+/// Output: 5->4->3->2->1->NULL
+///
+///
+/// Follow up:
+///
+/// A linked list can be reversed either iteratively or recursively. Could you
+/// implement both?
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
+use crate::util::linked_list::{ListNode, to_list};
 
 // problem: https://leetcode.com/problems/reverse-linked-list/
 // discuss: https://leetcode.com/problems/reverse-linked-list/discuss/?currentPage=1&orderBy=most_votes&query=

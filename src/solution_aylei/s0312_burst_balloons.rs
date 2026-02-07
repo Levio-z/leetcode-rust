@@ -1,26 +1,28 @@
-/**
- * [312] Burst Balloons
- *
- * Given n balloons, indexed from 0 to n-1. Each balloon is painted with a number on it represented by array nums. You are asked to burst all the balloons. If the you burst balloon i you will get nums[left] * nums[i] * nums[right] coins. Here left and right are adjacent indices of i. After the burst, the left and right then becomes adjacent.
- *
- * Find the maximum coins you can collect by bursting the balloons wisely.
- *
- * Note:
- *
- *
- * 	You may imagine nums[-1] = nums[n] = 1. They are not real therefore you can not burst them.
- * 	0 &le; n &le; 500, 0 &le; nums[i] &le; 100
- *
- *
- * Example:
- *
- *
- * Input: [3,1,5,8]
- * Output: 167
- * Explanation: nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
- *              coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
- *
- */
+/// [312] Burst Balloons
+///
+/// Given n balloons, indexed from 0 to n-1. Each balloon is painted with a
+/// number on it represented by array nums. You are asked to burst all the
+/// balloons. If the you burst balloon i you will get nums[left] * nums[i] *
+/// nums[right] coins. Here left and right are adjacent indices of i. After the
+/// burst, the left and right then becomes adjacent.
+///
+/// Find the maximum coins you can collect by bursting the balloons wisely.
+///
+/// Note:
+///
+///
+///     You may imagine nums[-1] = nums[n] = 1. They are not real therefore you can
+/// not burst them.     0 &le; n &le; 500, 0 &le; nums[i] &le; 100
+///
+///
+/// Example:
+///
+///
+/// Input: [3,1,5,8]
+/// Output: 167
+/// Explanation: nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
+///              coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
+///
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/burst-balloons/
@@ -28,22 +30,21 @@ pub struct Solution {}
 
 // submission codes start here
 
-/*
-The key idea is, for a sequence of balloon, select a balloon to be the last one to be bursted:
-
-max of [1 . a b c d e f . 1]
-
-                ^   say we select 'c' as the last balloon to burst, then:
-
-=
-   max of [1 . a b . c] +
-
-   max of [c . d e f . 1] +
-
-   1 * c * 1
-
-Then we can use memorize to record the max of every sub sequence
-*/
+// The key idea is, for a sequence of balloon, select a balloon to be the last
+// one to be bursted:
+//
+// max of [1 . a b c d e f . 1]
+//
+// ^   say we select 'c' as the last balloon to burst, then:
+//
+// =
+// max of [1 . a b . c] +
+//
+// max of [c . d e f . 1] +
+//
+// 1 * c * 1
+//
+// Then we can use memorize to record the max of every sub sequence
 impl Solution {
     pub fn max_coins(nums: Vec<i32>) -> i32 {
         if nums.is_empty() {

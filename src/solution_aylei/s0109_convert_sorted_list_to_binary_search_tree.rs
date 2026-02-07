@@ -1,36 +1,39 @@
-/**
- * [109] Convert Sorted List to Binary Search Tree
- *
- * Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
- *
- * For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
- *
- * Example:
- *
- *
- * Given the sorted linked list: [-10,-3,0,5,9],
- *
- * One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
- *
- *       0
- *      / \
- *    -3   9
- *    /   /
- *  -10  5
- *
- *
- */
+/// [109] Convert Sorted List to Binary Search Tree
+///
+/// Given a singly linked list where elements are sorted in ascending order,
+/// convert it to a height balanced BST.
+///
+/// For this problem, a height-balanced binary tree is defined as a binary tree
+/// in which the depth of the two subtrees of every node never differ by more
+/// than 1.
+///
+/// Example:
+///
+///
+/// Given the sorted linked list: [-10,-3,0,5,9],
+///
+/// One possible answer is: [0,-3,9,-10,null,5], which represents the following
+/// height balanced BST:
+///
+///       0
+///      / \
+///    -3   9
+///    /   /
+///  -10  5
+///
+///
 pub struct Solution {}
-use crate::util::linked_list::{to_list, ListNode};
-use crate::util::tree::{to_tree, TreeNode};
-
 // problem: https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
 // discuss: https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
-
 use std::cell::RefCell;
 use std::rc::Rc;
+
+use crate::util::{
+    linked_list::{ListNode, to_list},
+    tree::{TreeNode, to_tree},
+};
 impl Solution {
     pub fn sorted_list_to_bst(head: Option<Box<ListNode>>) -> Option<Rc<RefCell<TreeNode>>> {
         let mut arr = Vec::new();
