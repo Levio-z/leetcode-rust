@@ -113,8 +113,11 @@ pub fn move_to_solution(id: &u32) {
     let target_line = format!("mod {};", file_name);
     let lines: Vec<String> = io::BufReader::new(fs::File::open(mod_file).unwrap())
         .lines()
-        .map(|x| x.unwrap())
-        .filter(|x| *x != target_line)
+        .map(|x| {
+            let mut x = x.unwrap();
+            x.replace(&target_line, "");
+            x
+        })
         .collect();
     fs::write(mod_file, lines.join("\n")).unwrap();
     // insert into solution/mod.rs
