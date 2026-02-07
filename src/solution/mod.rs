@@ -22,3 +22,5 @@ mod s1114_print_in_order;
 mod s1115_print_foobar_alternately;
 mod s1472_design_browser_history;
 mod s0383_ransom_note;
+mod s0344_reverse_string;
+mod s0541_reverse_string_ii;

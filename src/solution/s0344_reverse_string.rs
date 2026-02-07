@@ -71,9 +71,12 @@ impl Solution {
         // mid - 1 始终是左半部分的最后一个元素
         let mid = s.len() / 2;
         let (left, right) = s.split_at_mut(mid);
+        println!("{:?}", left);
+        println!("{:?}", right);
         // more idiomatic
-        for (l, r) in left.iter_mut().zip(right.iter().rev()) {
-            *l = *r;
+        // 如果任意一个返回 None，zip 就停止迭代
+        for (l, r) in left.iter_mut().zip(right.iter_mut().rev()) {
+            core::mem::swap(l, r);
         }
     }
     /// str上的一些方法也可以研究一下
@@ -95,7 +98,7 @@ mod tests {
     #[test]
     fn test_344() {
         let mut s = vec!['h', 'e', 'l', 'l', 'o'];
-        Solution::reverse_string(&mut s);
+        Solution::reverse_string4(&mut s);
         assert_eq!(s, vec!['o', 'l', 'l', 'e', 'h']);
     }
 }
