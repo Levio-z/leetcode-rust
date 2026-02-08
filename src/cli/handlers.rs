@@ -5,6 +5,7 @@ use std::{
 };
 
 use regex::Regex;
+use tracing::info;
 
 use super::template::{
     clean_html_description, format_discuss_url, format_problem_url, generate_extra_imports,
@@ -111,6 +112,7 @@ pub fn move_to_solution(id: &u32) {
     // remove from problem/mod.rs
     let mod_file = "./src/problem/mod.rs";
     let target_line = format!("mod {};", file_name);
+    info!("remove {} from {}", target_line, mod_file);
     let lines: Vec<String> = io::BufReader::new(fs::File::open(mod_file).unwrap())
         .lines()
         .map(|x| {

@@ -32,6 +32,9 @@ struct Cli {
 
 /// main() helps to generate the submission template .rs
 fn main() {
+    // 初始化tracing订阅者
+    tracing_subscriber::fmt::init();
+
     let cli = Cli::parse();
     let initialized_ids = get_initialized_problem_ids();
 
