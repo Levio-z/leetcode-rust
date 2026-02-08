@@ -51,10 +51,13 @@ impl Solution {
         let mut l = 0;
         let mut r = nums.len() - 1;
         while (l < r) {
-            match nums[l] + nums[r] {
-                x if x == target => return vec![l as i32 + 1, r as i32 + 1],
-                x if x < target => l += 1,
-                _ => r -= 1,
+            let sum = nums[l] + nums[r];
+            if sum == target {
+                return vec![l as i32 + 1, r as i32 + 1];
+            } else if sum < target {
+                l += 1;
+            } else {
+                r -= 1;
             }
         }
         vec![]
@@ -63,10 +66,13 @@ impl Solution {
         let mut l = 0;
         let mut r = nums.len() - 1;
         loop {
-            match nums[l] + nums[r] {
-                x if x == target => return vec![l as i32 + 1, r as i32 + 1],
-                x if x < target => l += 1,
-                _ => r -= 1,
+            let sum = nums[l] + nums[r];
+            if sum == target {
+                return vec![l as i32 + 1, r as i32 + 1];
+            } else if sum < target {
+                l += 1;
+            } else {
+                r -= 1;
             }
         }
     }
