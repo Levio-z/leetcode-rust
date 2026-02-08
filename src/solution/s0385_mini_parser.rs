@@ -26,8 +26,8 @@
 /// Constraints:
 ///
 ///     1 <= s.length <= 5 * 10^4
-///     s consists of digits, square brackets "[]", negative sign '-', and commas
-/// ','.     s is the serialization of valid NestedInteger.
+///     s consists of digits, square brackets "[]", negative sign '-', and
+/// commas ','.     s is the serialization of valid NestedInteger.
 ///     All the values in the input are in the range [-10^6, 10^6].
 pub struct Solution {}
 
@@ -135,7 +135,7 @@ mod tests {
     fn test_385_2() {
         let s = "123".to_string();
         println!("{}", s);
-        if s.chars().next().unwrap() != '[' {
+        if !s.starts_with('[') {
             println!("{}", s);
             let x = s.parse::<i32>().unwrap();
         }

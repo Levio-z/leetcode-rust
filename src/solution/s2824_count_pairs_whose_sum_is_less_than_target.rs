@@ -11,9 +11,8 @@
 /// statement:
 /// - (0, 1) since 0 < 1 and nums[0] + nums[1] = 0 < target
 /// - (0, 2) since 0 < 2 and nums[0] + nums[2] = 1 < target
-/// - (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target
-/// Note that (0, 3) is not counted since nums[0] + nums[3] is not strictly less
-/// than the target.
+/// - (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target Note that (0, 3) is
+///   not counted since nums[0] + nums[3] is not strictly less than the target.
 ///
 /// <strong class="example">Example 2:
 ///
@@ -35,9 +34,8 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= nums.length == n <= 50
-/// 	-50 <= nums[i], target <= 50
-///
+///     1 <= nums.length == n <= 50
+///     -50 <= nums[i], target <= 50
 pub struct Solution {}
 
 // problem: https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/
@@ -74,7 +72,7 @@ mod tests {
 
     #[test]
     fn test_2824() {
-        let nums = vec![-1,1,2,3,1];
+        let nums = vec![-1, 1, 2, 3, 1];
         let target = 2;
         let ans = 3;
         assert_eq!(Solution::count_pairs(nums, target), ans);

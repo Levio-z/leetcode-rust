@@ -244,7 +244,7 @@ mod tests {
         time::Duration,
     };
 
-    use rand::Rng;
+    use rand::{Rng, thread_rng};
 
     use super::*;
 
@@ -360,7 +360,7 @@ mod tests {
             let foo_clone = Arc::clone(&foo);
             let h1 = thread::spawn(move || {
                 foo_clone.first(|| {
-                    thread::sleep(Duration::from_millis(rand::thread_rng().gen_range(0..100)));
+                    thread::sleep(Duration::from_millis(thread_rng().gen_range(0..100)));
                     let mut lock = out.lock().unwrap();
                     lock.push_str(&format!("first{}", group));
                 });
@@ -372,7 +372,10 @@ mod tests {
             let foo_clone = Arc::clone(&foo);
             let h2 = thread::spawn(move || {
                 foo_clone.second(|| {
-                    thread::sleep(Duration::from_millis(rand::thread_rng().gen_range(0..100)));
+                    thread::sleep(Duration::from_millis(Rng::gen_range(
+                        &mut thread_rng(),
+                        0..100,
+                    )));
                     let mut lock = out.lock().unwrap();
                     lock.push_str(&format!("second{}", group));
                 });
@@ -383,7 +386,10 @@ mod tests {
 
             let h3 = thread::spawn(move || {
                 foo.third(|| {
-                    thread::sleep(Duration::from_millis(rand::thread_rng().gen_range(0..100)));
+                    thread::sleep(Duration::from_millis(Rng::gen_range(
+                        &mut thread_rng(),
+                        0..100,
+                    )));
                     let mut lock = out.lock().unwrap();
                     lock.push_str(&format!("third{}", group));
                 });

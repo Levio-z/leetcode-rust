@@ -99,14 +99,12 @@ impl Trie {
     }
 }
 
-/// Your Trie object will be instantiated and called as such:
-/// let obj = Trie::new();
-/// obj.insert(word);
-/// let ret_2: bool = obj.search(word);
-/// let ret_3: bool = obj.starts_with(prefix);
-
+// /// Your Trie object will be instantiated and called as such:
+// /// let obj = Trie::new();
+// /// obj.insert(word);
+// /// let ret_2: bool = obj.search(word);
+// /// let ret_3: bool = obj.starts_with(prefi
 // submission codes end
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -115,11 +113,11 @@ mod tests {
     fn test_208() {
         let mut trie = Trie::new();
         trie.insert("apple".to_string());
-        assert_eq!(trie.search("apple".to_string()), true);
-        assert_eq!(trie.search("app".to_string()), false);
-        assert_eq!(trie.starts_with("app".to_string()), true);
+        assert!(trie.search("apple".to_string()));
+        assert!(!trie.search("app".to_string()));
+        assert!(trie.starts_with("app".to_string()));
         trie.insert("app".to_string());
-        assert_eq!(trie.search("app".to_string()), true);
+        assert!(trie.search("app".to_string()));
     }
     #[test]
     fn test_default_trie() {
@@ -132,13 +130,13 @@ mod tests {
 
         // 空字符串处理
         trie.insert("".to_string());
-        assert_eq!(trie.search("".to_string()), true);
-        assert_eq!(trie.starts_with("".to_string()), true);
+        assert!(trie.search("".to_string()));
+        assert!(trie.starts_with("".to_string()));
 
         // 单个字符测试
         trie.insert("a".to_string());
-        assert_eq!(trie.search("a".to_string()), true);
-        assert_eq!(trie.starts_with("a".to_string()), true);
+        assert!(trie.search("a".to_string()));
+        assert!(trie.starts_with("a".to_string()));
     }
 
     #[test]
@@ -153,14 +151,11 @@ mod tests {
 
         // 大量查找测试
         for i in 0..1000 {
-            assert_eq!(
-                trie.search(format!("word{}", vec[i % vec.len()] as char)),
-                true
-            );
+            assert!(trie.search(format!("word{}", vec[i % vec.len()] as char)));
         }
 
         // 前缀查找测试
-        assert_eq!(trie.starts_with("word".to_string()), true);
-        assert_eq!(trie.starts_with("nonexistent".to_string()), false);
+        assert!(trie.starts_with("word".to_string()));
+        assert!(!trie.starts_with("nonexistent".to_string()));
     }
 }

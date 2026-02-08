@@ -29,9 +29,9 @@
 ///  
 /// Constraints:
 ///
-/// 	1 <= s.length <= 10^4
-/// 	s contains English letters (upper-case and lower-case), digits, and spaces
-/// ' '. 	There is at least one word in s.
+///     1 <= s.length <= 10^4
+///     s contains English letters (upper-case and lower-case), digits, and
+/// spaces ' '.     There is at least one word in s.
 ///
 ///  
 /// <b data-stringify-type="bold">Follow-up: If the string data type is mutable

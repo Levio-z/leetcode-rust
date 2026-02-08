@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter};
+
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 
@@ -99,13 +101,14 @@ pub(crate) struct Difficulty {
     pub level: u32,
 }
 
-impl Difficulty {
-    pub fn to_string(&self) -> String {
-        match self.level {
+impl Display for Difficulty {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let difficulty = match self.level {
             1 => "Easy".to_string(),
             2 => "Medium".to_string(),
             3 => "Hard".to_string(),
             _ => "Unknown".to_string(),
-        }
+        };
+        write!(f, "{}", difficulty)
     }
 }
