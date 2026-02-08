@@ -89,6 +89,51 @@ impl Solution {
         }
         res
     }
+    pub fn three_sum2(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
+        nums.sort_unstable();
+        // 三元组的顺序并不重要
+        // i<j<k
+        // 枚举 i，转换成立两数之和=target-nums[i]
+        let n = nums.len();
+        let mut res = vec![];
+        for i in 0..n - 2 {
+            // 跳过重复的元素
+            if i > 0 && nums[i] == nums[i - 1] {
+                continue;
+            }
+            if i >= n - 2 {
+                break;
+            }
+            if nums[i] + nums[i + 1] + nums[i + 2] > 0 {
+                break;
+            }
+            if nums[i] + nums[n - 2] + nums[n - 1] < 0 {
+                continue;
+            }
+            let mut j = i + 1;
+            let mut k = n - 1;
+            while j < k {
+                let sum = nums[i] + nums[j] + nums[k];
+                match sum {
+                    0 => {
+                        res.push(vec![nums[i], nums[j], nums[k]]);
+                        j += 1;
+                        // j<k保证j不会超过k导致越界
+                        while j < k && nums[j] == nums[j - 1] {
+                            j += 1;
+                        }
+                        k -= 1;
+                        while j < k && nums[k] == nums[k + 1] {
+                            k -= 1;
+                        }
+                    }
+                    sum if sum < 0 => j += 1,
+                    _ => k -= 1,
+                }
+            }
+        }
+        res
+    }
 }
 
 // submission codes end
@@ -101,6 +146,13 @@ mod tests {
     fn test_15() {
         let nums = vec![-1, 0, 1, 2, -1, -4];
         let result = Solution::three_sum(nums);
+        assert_eq!(result, vec![vec![-1, -1, 2], vec![-1, 0, 1]]);
+    }
+
+    #[test]
+    fn test_15_2() {
+        let nums = vec![-1, 0, 1, 2, -1, -4];
+        let result = Solution::three_sum2(nums);
         assert_eq!(result, vec![vec![-1, -1, 2], vec![-1, 0, 1]]);
     }
 }
