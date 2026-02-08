@@ -29,3 +29,4 @@ mod s0167_two_sum_ii_input_array_is_sorted;
 mod s0015_3sum;
 mod s2824_count_pairs_whose_sum_is_less_than_target;
 mod s0016_3sum_closest;
+mod s0018_4sum;
