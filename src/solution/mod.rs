@@ -32,3 +32,6 @@ mod s0016_3sum_closest;
 mod s0018_4sum;
 mod s0611_valid_triangle_number;
 mod s0011_container_with_most_water;
+mod s0042_trapping_rain_water;
+mod s0125_valid_palindrome;
+mod s2105_watering_plants_ii;
