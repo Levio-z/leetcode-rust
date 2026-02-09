@@ -25,6 +25,10 @@ struct Cli {
     #[arg(short = 's', long = "solve")]
     solve: bool,
 
+    /// Remove problem content
+    #[arg(short = 'd', long = "delete")]
+    delete: bool,
+
     /// Initialize all problems
     #[arg(short = 'a', long = "all")]
     all: bool,
@@ -50,6 +54,13 @@ fn main() {
                 std::process::exit(1);
             });
             Command::Solve(id)
+        } else if cli.delete {
+            // Parse the problem ID for delete command
+            let id = id_str.parse::<u32>().unwrap_or_else(|_| {
+                eprintln!("Error: Invalid problem ID: {}", id_str);
+                std::process::exit(1);
+            });
+            Command::Remove(id)
         } else {
             // Parse the problem ID for fetch command
             let id = id_str.parse::<u32>().unwrap_or_else(|_| {

@@ -129,3 +129,30 @@ pub fn move_to_solution(id: &u32) {
         .unwrap();
     writeln!(lib_file, "mod {};", solution_name).unwrap();
 }
+
+/// Remove a problem file from problem directory
+pub fn remove_problem(id: &u32) {
+    let file_name = find_problem_file(id);
+
+    let file_path = Path::new("./src/problem").join(format!("{}.rs", file_name));
+    if !file_path.exists() {
+        panic!("problem does not exist");
+    }
+
+    // remove file
+    fs::remove_file(file_path).unwrap();
+
+    // remove from problem/mod.rs
+    let mod_file = "./src/problem/mod.rs";
+    let target_line = format!("mod {};", file_name);
+    info!("remove {} from {}", target_line, mod_file);
+    let lines: Vec<String> = io::BufReader::new(fs::File::open(mod_file).unwrap())
+        .lines()
+        .map(|x| {
+            let x = x.unwrap();
+            x.replace(&target_line, "")
+        })
+        .filter(|x| !x.trim().is_empty())
+        .collect();
+    fs::write(mod_file, lines.join("\n")).unwrap();
+}

@@ -7,7 +7,7 @@ use futures::{executor::block_on, future::join_all, task::SpawnExt};
 use rand::Rng;
 use regex::Regex;
 
-use super::handlers::{create_problem_file, get_initialized_problem_ids, move_to_solution};
+use super::handlers::{create_problem_file, get_initialized_problem_ids, move_to_solution, remove_problem};
 use crate::fetcher;
 
 /// Command types supported by the CLI
@@ -15,6 +15,7 @@ use crate::fetcher;
 pub enum Command {
     Random,
     Solve(u32),
+    Remove(u32),
     All,
     FetchById(u32),
 }
@@ -25,6 +26,7 @@ pub fn parse_command(input: &str) -> Result<Command, String> {
 
     let random_pattern = Regex::new(r"^random$").unwrap();
     let solving_pattern = Regex::new(r"^solve (\d+)$").unwrap();
+    let remove_pattern = Regex::new(r"^remove (\d+)$").unwrap();
     let all_pattern = Regex::new(r"^all$").unwrap();
 
     if random_pattern.is_match(input) {
@@ -37,6 +39,14 @@ pub fn parse_command(input: &str) -> Result<Command, String> {
             .parse()
             .map_err(|_| "Invalid problem ID")?;
         Ok(Command::Solve(id))
+    } else if let Some(caps) = remove_pattern.captures(input) {
+        let id = caps
+            .get(1)
+            .unwrap()
+            .as_str()
+            .parse()
+            .map_err(|_| "Invalid problem ID")?;
+        Ok(Command::Remove(id))
     } else if all_pattern.is_match(input) {
         Ok(Command::All)
     } else {
@@ -90,6 +100,10 @@ pub fn execute_command(cmd: Command, initialized_ids: &[u32]) -> Result<bool, St
         }
         Command::Solve(id) => {
             move_to_solution(&id);
+            Ok(true) // Exit after processing
+        }
+        Command::Remove(id) => {
+            remove_problem(&id);
             Ok(true) // Exit after processing
         }
         Command::All => {
