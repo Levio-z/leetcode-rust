@@ -1,5 +1,7 @@
 extern crate reqwest;
 
+use tracing::info;
+
 use super::{
     api_models::{ProblemsResponse, Query, RawProblem},
     models::{Problem, Problems, StatWithStatus},
@@ -21,7 +23,9 @@ pub fn get_problem(frontend_question_id: u32) -> Option<Problem> {
         .chain(concurrency_problems.stat_status_pairs.iter())
     {
         if problem.stat.frontend_question_id == frontend_question_id {
+            info!("== problem {}", frontend_question_id);
             if problem.paid_only {
+                info!("paid_only problem {}", frontend_question_id);
                 return None;
             }
 
