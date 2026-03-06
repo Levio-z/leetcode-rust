@@ -117,8 +117,7 @@ pub fn move_to_solution(id: &u32) {
         .lines()
         .map(|x| {
             let mut x = x.unwrap();
-            x.replace(&target_line, "");
-            x
+            x.replace(&target_line, "")
         })
         .collect();
     fs::write(mod_file, lines.join("\n")).unwrap();
