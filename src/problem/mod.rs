@@ -17,5 +17,4 @@ fn main() {
     // let list = std::collections::LinkedList::new();
 }
 
-
-mod p0034_find_first_and_last_position_of_element_in_sorted_array;
+mod p2563_count_the_number_of_fair_pairs;
