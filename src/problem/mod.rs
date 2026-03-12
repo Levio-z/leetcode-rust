@@ -17,4 +17,4 @@ fn main() {
     // let list = std::collections::LinkedList::new();
 }
 
-mod p2563_count_the_number_of_fair_pairs;
+mod p0875_koko_eating_bananas;
