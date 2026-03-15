@@ -17,4 +17,3 @@ fn main() {
     // let list = std::collections::LinkedList::new();
 }
 
-mod p0875_koko_eating_bananas;
