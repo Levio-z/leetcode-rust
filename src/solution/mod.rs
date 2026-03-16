@@ -56,3 +56,8 @@ mod s2962_count_subarrays_where_max_element_appears_at_least_k_times;
 mod s3090_maximum_length_substring_with_two_occurrences;
 mod s3258_count_substrings_that_satisfy_k_constraint_i;
 mod s2439_minimize_maximum_of_array;
+mod s2517_maximum_tastiness_of_candy_basket;
+mod s0162_find_peak_element;
+mod s0153_find_minimum_in_rotated_sorted_array;
+mod s0033_search_in_rotated_sorted_array;
+mod s0074_search_a_2d_matrix;
